@@ -981,17 +981,19 @@ const QUIZZES = {
         explain: "AI is <b>leverage, not replacement</b>. Use it to do more of the compounding work (creative iteration, data analysis, audit speed) and less of the busywork that doesn't move the needle."
       },
       {
-        type: "mcq",
+        type: "multi",
         tag: "Day 8 · AI in your day",
-        prompt: "Which is a real place AI shows up in a PMA's day at AdClass?",
+        prompt: "Select all the places AI actually shows up in a PMA's day at AdClass.",
         options: [
-          "Generating new creative angle variants from winning ad transcripts + landing-page context",
+          "Generating new creative angle variants from winning ad transcripts + LP context",
+          "Accelerating audits — finding anomalies in a PPC sheet",
+          "Drafting creative briefs from intake + competitor research",
+          "Meeting prep — Fathom transcript + Notion + Slack into a cited doc",
           "Auto-approving client invoices",
-          "Setting the client's pricing for them",
-          "Replacing the pod leader's strategy calls"
+          "Setting the client's pricing for them"
         ],
-        answer: 0,
-        explain: "Everyday PMA uses: creative iteration (transcripts + LP → new angles), audit acceleration (find anomalies in a PPC sheet), brief writing, and meeting prep. It speeds the work; it doesn't replace judgment."
+        answer: [0, 1, 2, 3],
+        explain: "Everyday PMA uses: creative iteration (transcripts + LP → new angles), audit acceleration, brief writing, and meeting prep. It speeds the work; it doesn't make business decisions like pricing or approvals."
       },
       {
         type: "mcq",
@@ -1100,17 +1102,33 @@ const QUIZZES = {
         explain: "Claude proposes the first campaign structure; the <b>PMS reviews</b> it. AI drafts, humans approve — that pattern runs through every stage."
       },
       {
-        type: "mcq",
+        type: "multi",
         tag: "Day 9 · Pre-launch QA",
-        prompt: "Which of these belongs on the pre-launch QA checklist?",
+        prompt: "Select all the items that belong on the pre-launch QA checklist.",
         options: [
-          "The client's lifetime revenue forecast",
           "Tracking verified — every conversion event firing (pixel / Hyros)",
+          "Correct links in both the destination and the body copy",
+          "Creative looks right in every placement (e.g. the head isn't cropped)",
+          "Settings check — optimization event, targeting, correct pixel, exclusions",
+          "Campaign / ad sets / ads are all turned on",
           "A signed testimonial from the client",
-          "The editor's availability next month"
+          "The client's lifetime revenue forecast"
         ],
-        answer: 1,
-        explain: "QA is a pre-launch gate: tracking verified, links correct, settings (optimization event/targeting/pixel/exclusions) right, everything turned on. Most “broken account” problems trace to a launch that skipped it."
+        answer: [0, 1, 2, 3, 4],
+        explain: "QA is a pre-launch gate: creative right in every placement, tracking verified, links correct, settings right, everything on. (For a new funnel: publish → turn off → go through it as a lead → confirm funnel + tracking → turn back on.) Most “broken account” problems trace to a skipped QA."
+      },
+      {
+        type: "mcq",
+        tag: "Day 9 · Workflow",
+        prompt: "The Client Launcher is largely PMS-driven. At which point does the PMA (media buyer — you) typically step in?",
+        options: [
+          "Once the architecture is approved — to build, QA, and launch the campaigns in the ad account",
+          "At intake, to interview the client",
+          "Never — it's entirely the PMS's job",
+          "Only after the first full month of results"
+        ],
+        answer: 0,
+        explain: "The PMA owns everything inside the ad account, so you come in around build / QA / launch — after the PMS-led intake, audit, and architecture. The earlier stages are strategy-before-the-click, the PMS's domain."
       },
       {
         type: "mcq",
@@ -1304,6 +1322,13 @@ const QUIZZES = {
         explain: "Golden rule: <b>never modify a live ad set</b>. Adding into it muddies data, steals delivery from what's working, and resets learning. Duplicate instead. (OK in place: budget/bid, pausing losers.)"
       },
       {
+        type: "fill",
+        tag: "Day 12 · Kill criteria",
+        prompt: "Fill in the blank: the kill-criteria rule is to spend ___× your KPI on an ad set before deciding it's a loser. (a number)",
+        accept: ["3", "3x", "x3", "three", "3 times", "3×"],
+        explain: "<b>3× KPI.</b> If cost-per-call is $300, let the ad set spend ~$900 before judging it."
+      },
+      {
         type: "mcq",
         tag: "Day 12 · Kill criteria",
         prompt: "When is it OK to cut an ad set BEFORE it hits 3× KPI spend?",
@@ -1317,17 +1342,20 @@ const QUIZZES = {
         explain: "Cut faster when leading indicators are obviously bad on day one (CPC 2–3× normal), or on diversity-play statics with absurd CPCs — you don't need conversion data to know it's a loser."
       },
       {
-        type: "mcq",
+        type: "multi",
         tag: "Day 12 · Daily OS",
-        prompt: "Which is part of the daily optimization pass?",
+        prompt: "Select all the things you check on the daily optimization pass.",
         options: [
-          "Redesign the landing page every morning",
-          "Verify the VA's reported numbers against Hyros, run 7/14/30 comparisons, and check what's spending vs. converting",
-          "Rewrite all the ad copy daily",
-          "Launch a brand-new funnel each day"
+          "Verify the VA's reported numbers, then confirm against Hyros",
+          "Run a 7 / 14 / 30-day comparison on the key metrics",
+          "What's eating budget (top spender) and what's converting",
+          "Anything past 3× KPI without a conversion (kill candidates)",
+          "The 20% net-new test budget — has anything emerged?",
+          "Redesign the landing page from scratch",
+          "Rewrite all the ad copy"
         ],
-        answer: 1,
-        explain: "The daily OS: verify the VA's numbers (then confirm in Hyros), 7/14/30 comparison, what's eating budget, what's converting, what's past kill criteria, what's net-new, and the leading-indicator picture."
+        answer: [0, 1, 2, 3, 4],
+        explain: "The daily OS: verify the VA's numbers (confirm in Hyros), 7/14/30 comparison, what's eating budget, what's converting, what's past kill criteria, what's net-new, and the leading-indicator picture. Redesigning pages or rewriting all copy isn't a daily task."
       },
       {
         type: "mcq",
@@ -1354,6 +1382,19 @@ const QUIZZES = {
         ],
         answer: 0,
         explain: "Scale winners <b>+20–40% per day</b> (and for info/high-ticket, scale in place — don't disturb a working ad set)."
+      },
+      {
+        type: "mcq",
+        tag: "Day 12 · Scaling",
+        prompt: "Your test campaign is outperforming your scaled CBO on an info/high-ticket account. Do you migrate its post-IDs into the CBO?",
+        options: [
+          "No — scale in place; moving a winning post-ID into a scaled ad set makes Meta re-find a pocket and spikes call-cost volatility",
+          "Yes — always consolidate winners into the CBO",
+          "Yes — a CBO is always more efficient",
+          "Delete the test and rebuild it inside the CBO"
+        ],
+        answer: 0,
+        explain: "For info/high-ticket, <b>scale in place</b> — don't disturb what's working. Sometimes the test campaign just becomes your top spender, and that's fine. Post-ID-into-CBO is for high-volume e-com/low-ticket."
       },
       {
         type: "mcq",
@@ -1666,17 +1707,19 @@ const QUIZZES = {
         explain: "Default to <b>Phrase match</b>. Exact is too narrow early; Broad is for testing only. Research keywords with Claude (feed it the offer) and/or Google Keyword Planner."
       },
       {
-        type: "mcq",
+        type: "multi",
         tag: "Google · Bot prevention",
-        prompt: "Which of these is a real lever for fighting bot traffic on Google?",
+        prompt: "Select all the levers AdClass uses to fight bot traffic on Google Search.",
         options: [
-          "Raise the daily budget",
-          "Switch to Performance Max",
-          "Turn on the Display Network",
-          "Deselect “Unknown” for age/gender/income, exclude non-US countries, and keep Search Partners + Display off"
+          "Deselect “Unknown” for age, gender, and household income",
+          "Exclude all non-US countries in bulk",
+          "Keep Search Partners + Display Network turned off",
+          "Switch the campaign to Performance Max",
+          "Turn the Display Network on",
+          "Raise the daily budget"
         ],
-        answer: 3,
-        explain: "Bot prevention is the whole game on Google: deselect “Unknown” demographics, bulk-exclude non-US countries (Nigeria/India/China are common culprits), and keep Search Partners + Display off."
+        answer: [0, 1, 2],
+        explain: "Bot prevention is the whole game on Google: deselect “Unknown” demographics, bulk-exclude non-US countries (Nigeria/India/China are common culprits), and keep Search Partners + Display off. Performance Max and Display are bot magnets — not levers against bots."
       },
       {
         type: "mcq",
