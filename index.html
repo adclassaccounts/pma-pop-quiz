@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>AdClass PMA Pop Quiz</title>
+<title>AdClass PMA Training Quizzes</title>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 <style>
   :root{
     --bg:#0a0d0c; --card:#14181a; --card-2:#1b2124; --ink:#eaf1ee; --muted:#8b9a93;
@@ -38,8 +39,40 @@
   .btn:disabled{opacity:.45;cursor:not-allowed}
   .btn.secondary{background:transparent;color:var(--green);border:1px solid var(--green)}
   .btn.secondary:hover{background:var(--green-l)}
+  .btn.ghost{background:transparent;color:var(--muted);border:1px solid var(--line-2);font-weight:600}
+  .btn.ghost:hover{color:var(--ink);border-color:var(--muted)}
   .progress{height:6px;background:var(--line);border-radius:99px;overflow:hidden;margin:0 0 24px}
   .progress > span{display:block;height:100%;background:var(--green);width:0;transition:width .3s}
+
+  /* dashboard */
+  .userbar{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+  .userbar img{width:40px;height:40px;border-radius:50%;object-fit:cover;border:1px solid var(--line-2)}
+  .userbar .who{flex:1;min-width:0}
+  .userbar .who .n{font-weight:700;font-size:15px}
+  .userbar .who .e{color:var(--muted);font-size:12.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .pod-note{color:var(--amber);font-size:12.5px;margin:6px 0 0}
+  .summary{display:flex;gap:10px;margin:18px 0 6px}
+  .summary .stat{flex:1;background:var(--card-2);border:1px solid var(--line);border-radius:12px;padding:12px 14px;text-align:center}
+  .summary .stat b{display:block;font-size:24px}
+  .summary .stat span{color:var(--muted);font-size:11.5px;text-transform:uppercase;letter-spacing:.4px}
+  .days{display:flex;flex-direction:column;gap:9px;margin-top:6px}
+  .day{display:flex;align-items:center;gap:13px;width:100%;text-align:left;border:1px solid var(--line-2);
+    border-radius:12px;padding:14px 16px;background:var(--card-2);color:var(--ink);font:inherit;cursor:pointer;transition:.12s}
+  button.day:hover{border-color:var(--green);background:var(--green-l)}
+  .day.locked{opacity:.5;cursor:not-allowed;background:var(--card)}
+  .day .dnum{width:34px;height:34px;flex:none;border-radius:9px;background:var(--bg);border:1px solid var(--line-2);
+    display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;color:var(--muted)}
+  .day.passed .dnum{background:var(--good-l);border-color:var(--good);color:var(--good)}
+  .day .dmain{flex:1;min-width:0}
+  .day .dt{font-weight:700;font-size:14.5px}
+  .day .dd{color:var(--muted);font-size:12.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .pill{flex:none;font-size:11.5px;font-weight:800;padding:5px 11px;border-radius:99px;white-space:nowrap}
+  .pill.passed{color:var(--good);background:var(--good-l)}
+  .pill.start{color:var(--green);background:var(--green-l)}
+  .pill.retry{color:var(--amber);background:var(--amber-l)}
+  .pill.locked{color:var(--muted);background:var(--bg);border:1px solid var(--line-2)}
+
+  /* questions */
   .q{margin-bottom:24px}
   .q .tag{display:inline-block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;
     color:var(--green);background:var(--green-l);padding:3px 9px;border-radius:99px;margin-bottom:10px}
@@ -71,6 +104,7 @@
   .hidden{display:none}
   .footer{text-align:center;color:#5b6a63;font-size:12px;margin-top:28px;letter-spacing:.3px}
   fieldset{border:none;padding:0;margin:0}
+  .row{display:flex;gap:10px;flex-wrap:wrap}
 </style>
 </head>
 <body>
@@ -80,23 +114,44 @@
     <span class="sep"></span><b>PMA Training</b>
   </div>
 
-  <!-- ============ START SCREEN ============ -->
-  <div class="card" id="screen-start">
-    <h1 id="start-title">Pop Quiz</h1>
-    <p class="sub" id="start-sub">Quick knowledge check. ~10 minutes. You'll see your score and the correct answers as soon as you submit.</p>
-    <fieldset>
-      <label for="trainee">Your name</label>
-      <input type="text" id="trainee" placeholder="e.g. Jordan Lee" autocomplete="name" />
-      <label for="leader">Your pod leader</label>
-      <select id="leader">
-        <option value="">Select your pod leader…</option>
-      </select>
-    </fieldset>
-    <div style="margin-top:24px"><button class="btn" id="begin">Start quiz →</button></div>
+  <!-- ============ AUTH ============ -->
+  <div class="card" id="screen-auth">
+    <h1>PMA Training Quizzes</h1>
+    <p class="sub">Sign in to track your progress. Each day unlocks once you pass the one before it (80%+).</p>
+    <div id="gbtn"></div>
+    <p class="note" id="auth-note" style="text-align:left"></p>
   </div>
 
-  <!-- ============ QUIZ SCREEN ============ -->
+  <!-- ============ DASHBOARD ============ -->
+  <div class="card hidden" id="screen-dash">
+    <div class="userbar">
+      <img id="dash-avatar" alt="" />
+      <div class="who"><div class="n" id="dash-name"></div><div class="e" id="dash-email"></div></div>
+      <button class="btn ghost" id="signout">Sign out</button>
+    </div>
+    <label for="pod">Your pod leader</label>
+    <select id="pod"></select>
+    <p class="pod-note hidden" id="pod-note"></p>
+
+    <div class="summary">
+      <div class="stat"><b id="stat-passed">0</b><span>Passed</span></div>
+      <div class="stat"><b id="stat-total">0</b><span>Days</span></div>
+      <div class="stat"><b id="stat-next">—</b><span>Up next</span></div>
+    </div>
+
+    <div class="days" id="days"></div>
+  </div>
+
+  <!-- ============ LOCKED ============ -->
+  <div class="card hidden" id="screen-locked">
+    <h1>🔒 Locked</h1>
+    <p class="sub" id="locked-msg"></p>
+    <button class="btn" id="locked-back">← Back to dashboard</button>
+  </div>
+
+  <!-- ============ QUIZ ============ -->
   <div class="card hidden" id="screen-quiz">
+    <button class="btn ghost" id="quiz-back" style="margin-bottom:16px">← Dashboard</button>
     <h1 id="quiz-title">Pop Quiz</h1>
     <p class="sub" id="quiz-sub"></p>
     <div class="progress"><span id="bar"></span></div>
@@ -105,7 +160,7 @@
     <p class="note" id="answered-note"></p>
   </div>
 
-  <!-- ============ RESULTS SCREEN ============ -->
+  <!-- ============ RESULTS ============ -->
   <div class="card hidden" id="screen-results">
     <div class="scorebox">
       <div class="pct" id="r-pct">0%</div>
@@ -115,8 +170,9 @@
     <h1 style="font-size:18px">Review your answers</h1>
     <p class="sub" id="r-sub">Green = correct, red = what you picked if it was wrong. Read the explanations — these are the things that come back on the Day 20 exam.</p>
     <div id="r-list"></div>
-    <div style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap">
-      <button class="btn secondary" id="retake">Retake</button>
+    <div class="row" style="margin-top:18px">
+      <button class="btn" id="to-dash">← Back to dashboard</button>
+      <button class="btn secondary" id="retake">Retake this day</button>
     </div>
     <p class="note" id="r-saved"></p>
   </div>
@@ -126,18 +182,22 @@
 
 <script>
 /* =====================================================================
-   CONFIG  — the only two things you edit between hiring rounds / setup
+   CONFIG  — set these up once (see SETUP-GUIDE.md)
    ===================================================================== */
 const CONFIG = {
-  // Paste your Google Apps Script Web App URL here to turn on recording
-  // (logs to the Google Sheet + posts to Slack). Leave "" for self-check only.
+  // "Sign in with Google" OAuth client ID (ends in .apps.googleusercontent.com).
+  // Leave "" to use Preview mode (no real sign-in; progress saved on this device only).
+  googleClientId: "",
+
+  // Google Apps Script Web App URL — records results AND serves each person's
+  // progress so day-locks follow them across devices. Leave "" for device-only mode.
   endpoint: "",
 
-  // Pass mark used only for the on-screen badge (does not gate anything).
+  // Pass mark — score needed to unlock the next day.
   passMark: 0.8,
 
   // Pod leader roster. Update this list each hiring round.
-  // slackId is optional — used to @mention them in Slack (e.g. "U01ABC23DEF").
+  // slackId optional — used to @mention them in Slack (e.g. "U01ABC23DEF").
   podLeaders: [
     { name: "Ryan",    slackId: "" },
     { name: "Anthony", slackId: "" },
@@ -367,53 +427,173 @@ const QUIZZES = {
   // ...add the rest here as we roll out
 };
 
-/* ===================================================================== */
+/* =====================================================================
+   APP
+   ===================================================================== */
 const $ = s => document.querySelector(s);
-const params = new URLSearchParams(location.search);
-const DAY = parseInt(params.get("day") || "2", 10);
-const quiz = QUIZZES[DAY];
-let state = { trainee:"", leader:null };
+const LS = { user:"pma_user", pod:"pma_pod", prog:"pma_prog:" };
+let USER=null, PROGRESS={}, POD=null, CURRENT=null;
 
-function init(){
-  const sel = $("#leader");
-  CONFIG.podLeaders.forEach((p,i)=>{
-    const o=document.createElement("option"); o.value=String(i); o.textContent=p.name; sel.appendChild(o);
-  });
-  if(!quiz){
-    $("#start-title").textContent="Quiz not found";
-    $("#start-sub").textContent="No quiz is set up for day "+DAY+" yet.";
-    $("#begin").disabled=true; return;
-  }
-  $("#start-title").textContent = quiz.title;
-  $("#begin").addEventListener("click", begin);
-  $("#submit").addEventListener("click", grade);
-  $("#retake").addEventListener("click", ()=>location.reload());
+function show(name){
+  ["auth","dash","locked","quiz","results"].forEach(s=>$("#screen-"+s).classList.toggle("hidden", s!==name));
+  window.scrollTo({top:0,behavior:"auto"});
+}
+function dayKeys(){ return Object.keys(QUIZZES).map(Number).sort((a,b)=>a-b); }
+
+/* ---------- boot ---------- */
+window.addEventListener("DOMContentLoaded", boot);
+function boot(){
+  POD = localStorage.getItem(LS.pod) || null;
+  $("#signout").onclick = signOut;
+  $("#locked-back").onclick = showDashboard;
+  $("#quiz-back").onclick = showDashboard;
+  $("#to-dash").onclick = showDashboard;
+  $("#retake").onclick = ()=>renderQuiz(CURRENT);
+  $("#submit").onclick = grade;
+  const cached = localStorage.getItem(LS.user);
+  if(cached){ USER = JSON.parse(cached); PROGRESS = readProgress(); afterLogin(); }
+  else showAuth();
 }
 
-function begin(){
-  const name=$("#trainee").value.trim();
-  const li=$("#leader").value;
-  if(!name){ alert("Please enter your name."); return; }
-  if(li===""){ alert("Please select your pod leader."); return; }
-  state.trainee=name; state.leader=CONFIG.podLeaders[parseInt(li,10)];
-  $("#screen-start").classList.add("hidden");
-  $("#screen-quiz").classList.remove("hidden");
+/* ---------- auth ---------- */
+function showAuth(){
+  show("auth");
+  const host = $("#gbtn"); host.innerHTML="";
+  if(CONFIG.googleClientId){
+    if(window.google && google.accounts && google.accounts.id){
+      google.accounts.id.initialize({ client_id:CONFIG.googleClientId, callback:onCredential });
+      google.accounts.id.renderButton(host, { theme:"filled_black", size:"large", text:"signin_with", shape:"pill", width:260 });
+      $("#auth-note").textContent="";
+    } else {
+      setTimeout(showAuth, 400); // GIS script still loading
+    }
+  } else {
+    const b=document.createElement("button"); b.className="btn"; b.textContent="Preview the portal →";
+    b.onclick=()=>{ USER={email:"preview@local", name:"Preview User", picture:""}; localStorage.setItem(LS.user,JSON.stringify(USER)); PROGRESS=readProgress(); afterLogin(); };
+    host.appendChild(b);
+    $("#auth-note").textContent="Google sign-in isn't configured yet — use Preview to try the full flow. In preview, progress is saved on this device only.";
+  }
+}
+function onCredential(resp){
+  const p = decodeJwt(resp.credential);
+  USER = { email:(p.email||"").toLowerCase(), name:p.name||p.email||"Trainee", picture:p.picture||"" };
+  localStorage.setItem(LS.user, JSON.stringify(USER));
+  PROGRESS = readProgress();
+  afterLogin();
+}
+function decodeJwt(t){ try{ return JSON.parse(decodeURIComponent(escape(atob(t.split(".")[1].replace(/-/g,"+").replace(/_/g,"/"))))); }catch(e){ return {}; } }
+function signOut(){
+  try{ if(window.google&&google.accounts&&google.accounts.id) google.accounts.id.disableAutoSelect(); }catch(e){}
+  localStorage.removeItem(LS.user); USER=null; PROGRESS={};
+  showAuth();
+}
+
+/* ---------- progress (local + backend) ---------- */
+function readProgress(){ try{ return JSON.parse(localStorage.getItem(LS.prog+USER.email)||"{}"); }catch(e){ return {}; } }
+function writeProgress(){ try{ localStorage.setItem(LS.prog+USER.email, JSON.stringify(PROGRESS)); }catch(e){} }
+
+function afterLogin(){ fetchProgress(routeAfterLogin); }
+
+function routeAfterLogin(){
+  const d = new URLSearchParams(location.search).get("day");
+  if(d && QUIZZES[d]) openDay(parseInt(d,10));
+  else showDashboard();
+}
+
+function fetchProgress(done){
+  let finished=false;
+  const finish=()=>{ if(finished)return; finished=true; done&&done(); };
+  if(!CONFIG.endpoint || !USER || USER.email==="preview@local"){ finish(); return; }
+  const cb="__pmaProg"+Date.now();
+  const s=document.createElement("script");
+  const cleanup=()=>{ try{delete window[cb];}catch(e){} if(s.parentNode)s.parentNode.removeChild(s); };
+  window[cb]=function(data){
+    try{
+      if(data && data.results){
+        Object.keys(data.results).forEach(day=>{
+          const r=data.results[day], cur=PROGRESS[day];
+          if(!cur || r.percent>cur.percent) PROGRESS[day]={percent:r.percent, passed:r.passed};
+        });
+        writeProgress();
+      }
+    }catch(e){}
+    cleanup(); finish();
+  };
+  s.onerror=()=>{ cleanup(); finish(); };
+  s.src=CONFIG.endpoint+"?email="+encodeURIComponent(USER.email)+"&callback="+cb;
+  document.body.appendChild(s);
+  setTimeout(()=>{ cleanup(); finish(); }, 6000);
+}
+
+/* ---------- dashboard ---------- */
+function isUnlocked(day){
+  const ks=dayKeys(), i=ks.indexOf(day);
+  if(i<=0) return true;
+  const prev=PROGRESS[ks[i-1]];
+  return !!(prev && prev.passed);
+}
+function showDashboard(){
+  $("#dash-name").textContent = USER.name;
+  $("#dash-email").textContent = USER.email;
+  const av=$("#dash-avatar");
+  if(USER.picture){ av.src=USER.picture; av.style.display="block"; } else { av.style.display="none"; }
+  renderPod();
+  renderDays();
+  show("dash");
+}
+function renderPod(){
+  const sel=$("#pod"); sel.innerHTML='<option value="">Select your pod leader…</option>';
+  CONFIG.podLeaders.forEach(p=>{ const o=document.createElement("option"); o.value=p.name; o.textContent=p.name; if(p.name===POD)o.selected=true; sel.appendChild(o); });
+  sel.onchange=()=>{ POD=sel.value||null; if(POD){ localStorage.setItem(LS.pod,POD); $("#pod-note").classList.add("hidden"); } };
+}
+function renderDays(){
+  const ks=dayKeys(); const wrap=$("#days"); wrap.innerHTML="";
+  let passed=0, next=null;
+  ks.forEach(day=>{
+    const q=QUIZZES[day], prog=PROGRESS[day], unlocked=isUnlocked(day), isPass=prog&&prog.passed;
+    if(isPass) passed++;
+    if(next===null && unlocked && !isPass) next=day;
+    const el=document.createElement(unlocked?"button":"div");
+    el.className="day"+(unlocked?"":" locked")+(isPass?" passed":"");
+    const status = isPass ? '<span class="pill passed">✓ '+prog.percent+'%</span>'
+      : unlocked ? (prog ? '<span class="pill retry">Retry · '+prog.percent+'%</span>' : '<span class="pill start">Start →</span>')
+      : '<span class="pill locked">🔒 Locked</span>';
+    el.innerHTML='<span class="dnum">'+(isPass?'✓':day)+'</span>'+
+      '<span class="dmain"><span class="dt">'+q.title+'</span><span class="dd">'+q.sub+'</span></span>'+status;
+    if(unlocked) el.onclick=()=>openDay(day);
+    wrap.appendChild(el);
+  });
+  $("#stat-passed").textContent=passed;
+  $("#stat-total").textContent=ks.length;
+  $("#stat-next").textContent = next!==null ? ("Day "+next) : "Done 🎉";
+}
+
+/* ---------- open a day ---------- */
+function openDay(day){
+  CURRENT=day;
+  if(!QUIZZES[day]){ showDashboard(); return; }
+  if(!isUnlocked(day)){ showLocked(day); return; }
+  if(!POD){ showDashboard(); const n=$("#pod-note"); n.textContent="Pick your pod leader first — your results get sent to them."; n.classList.remove("hidden"); return; }
+  renderQuiz(day);
+}
+function showLocked(day){
+  const ks=dayKeys(), i=ks.indexOf(day), prev=ks[i-1];
+  $("#locked-msg").innerHTML = "<b>"+QUIZZES[day].title+"</b> is locked. Pass <b>Day "+prev+"</b> (80%+) to unlock it.";
+  show("locked");
+}
+
+/* ---------- quiz ---------- */
+function renderQuiz(day){
+  CURRENT=day; const quiz=QUIZZES[day];
   $("#quiz-title").textContent=quiz.title;
   $("#quiz-sub").textContent=quiz.sub;
-  renderQuestions();
-}
-
-function renderQuestions(){
   const form=$("#quiz-form"); form.innerHTML="";
   quiz.questions.forEach((q,qi)=>{
     const wrap=document.createElement("div"); wrap.className="q"; wrap.dataset.qi=qi;
     const isReview=q.tag==="review";
-    const tagText=isReview?"Review":(q.tag||("Q"+(qi+1)));
-    const tag=document.createElement("span"); tag.className="tag"+(isReview?" review":""); tag.textContent=tagText;
+    const tag=document.createElement("span"); tag.className="tag"+(isReview?" review":""); tag.textContent=isReview?"Review":(q.tag||("Q"+(qi+1)));
     wrap.appendChild(tag);
-    const p=document.createElement("div"); p.className="prompt";
-    p.innerHTML='<span class="num">'+(qi+1)+'.</span>'+q.prompt; wrap.appendChild(p);
-
+    const p=document.createElement("div"); p.className="prompt"; p.innerHTML='<span class="num">'+(qi+1)+'.</span>'+q.prompt; wrap.appendChild(p);
     if(q.type==="mcq"){
       q.options.forEach((opt,oi)=>{
         const lab=document.createElement("label"); lab.className="opt";
@@ -423,116 +603,85 @@ function renderQuestions(){
       });
     } else if(q.type==="fill"){
       const inp=document.createElement("input"); inp.type="text"; inp.name="q"+qi;
-      inp.placeholder="Type your answer…"; inp.addEventListener("input",updateProgress);
-      wrap.appendChild(inp);
+      inp.placeholder="Type your answer…"; inp.addEventListener("input",updateProgress); wrap.appendChild(inp);
     }
-    const ex=document.createElement("div"); ex.className="explain"; ex.innerHTML="<b>Why:</b> "+q.explain;
-    wrap.appendChild(ex);
+    const ex=document.createElement("div"); ex.className="explain"; ex.innerHTML="<b>Why:</b> "+q.explain; wrap.appendChild(ex);
     form.appendChild(wrap);
   });
-  updateProgress();
+  updateProgress(); show("quiz");
 }
-
 function getAnswer(qi){
-  const q=quiz.questions[qi];
-  if(q.type==="mcq"){
-    const el=document.querySelector('input[name="q'+qi+'"]:checked');
-    return el?parseInt(el.value,10):null;
-  } else {
-    const el=document.querySelector('input[name="q'+qi+'"]');
-    return el && el.value.trim()!==""?el.value.trim():null;
-  }
+  const q=QUIZZES[CURRENT].questions[qi];
+  if(q.type==="mcq"){ const el=document.querySelector('input[name="q'+qi+'"]:checked'); return el?parseInt(el.value,10):null; }
+  const el=document.querySelector('input[name="q'+qi+'"]'); return el&&el.value.trim()!==""?el.value.trim():null;
 }
 function isCorrect(qi){
-  const q=quiz.questions[qi], a=getAnswer(qi);
+  const q=QUIZZES[CURRENT].questions[qi], a=getAnswer(qi);
   if(a===null) return false;
   if(q.type==="mcq") return a===q.answer;
   return q.accept.some(x=>x.toLowerCase()===String(a).toLowerCase());
 }
-function answeredCount(){ let n=0; quiz.questions.forEach((q,i)=>{ if(getAnswer(i)!==null) n++; }); return n; }
+function answeredCount(){ let n=0; QUIZZES[CURRENT].questions.forEach((q,i)=>{ if(getAnswer(i)!==null) n++; }); return n; }
 function updateProgress(){
-  const n=answeredCount(), t=quiz.questions.length;
+  const n=answeredCount(), t=QUIZZES[CURRENT].questions.length;
   $("#bar").style.width=(n/t*100)+"%";
   $("#answered-note").textContent=n+" of "+t+" answered";
 }
 
+/* ---------- grade ---------- */
 function grade(){
-  const t=quiz.questions.length;
-  if(answeredCount()<t){
-    if(!confirm("You haven't answered every question. Submit anyway?")) return;
-  }
+  const quiz=QUIZZES[CURRENT], t=quiz.questions.length;
+  if(answeredCount()<t){ if(!confirm("You haven't answered every question. Submit anyway?")) return; }
   let correct=0; const detail=[];
   quiz.questions.forEach((q,qi)=>{
-    const wrap=document.querySelector('.q[data-qi="'+qi+'"]');
-    const ok=isCorrect(qi); if(ok) correct++;
+    const wrap=document.querySelector('.q[data-qi="'+qi+'"]'); const ok=isCorrect(qi); if(ok) correct++;
     const given=getAnswer(qi);
     if(q.type==="mcq"){
       wrap.querySelectorAll(".opt").forEach((lab,oi)=>{
-        lab.classList.add("locked");
-        const input=lab.querySelector("input"); input.disabled=true;
-        if(oi===q.answer){ lab.classList.add("correct");
-          const m=document.createElement("span"); m.className="mark"; m.textContent="✓ correct"; lab.appendChild(m); }
-        if(given!==null && oi===given && oi!==q.answer){ lab.classList.add("wrong");
-          const m=document.createElement("span"); m.className="mark"; m.textContent="✗ your answer"; lab.appendChild(m); }
+        lab.classList.add("locked"); lab.querySelector("input").disabled=true;
+        if(oi===q.answer){ lab.classList.add("correct"); const m=document.createElement("span"); m.className="mark"; m.textContent="✓ correct"; lab.appendChild(m); }
+        if(given!==null && oi===given && oi!==q.answer){ lab.classList.add("wrong"); const m=document.createElement("span"); m.className="mark"; m.textContent="✗ your answer"; lab.appendChild(m); }
       });
     } else {
       const inp=wrap.querySelector("input"); inp.disabled=true;
-      inp.style.borderColor = ok ? "var(--good)" : "var(--bad)";
-      inp.style.background = ok ? "var(--good-l)" : "var(--bad-l)";
+      inp.style.borderColor = ok?"var(--good)":"var(--bad)"; inp.style.background = ok?"var(--good-l)":"var(--bad-l)";
     }
     wrap.querySelector(".explain").classList.add("show");
-    detail.push({
-      id:qi+1,
-      topic:q.tag,
-      prompt:q.prompt.replace(/<[^>]+>/g,""),
-      correct:ok,
-      given: given===null ? "(blank)" : (q.type==="mcq"? q.options[given] : given),
-      answer: q.type==="mcq"? q.options[q.answer] : q.accept[0]
-    });
+    detail.push({ id:qi+1, topic:q.tag, prompt:q.prompt.replace(/<[^>]+>/g,""), correct:ok,
+      given: given===null?"(blank)":(q.type==="mcq"?q.options[given]:given),
+      answer: q.type==="mcq"?q.options[q.answer]:q.accept[0] });
   });
 
-  const pct=Math.round(correct/t*100);
+  const pct=Math.round(correct/t*100), pass=correct/t>=CONFIG.passMark;
   $("#r-pct").textContent=pct+"%";
   $("#r-frac").textContent=correct+" of "+t+" correct";
-  const v=$("#r-verdict"); const pass=correct/t>=CONFIG.passMark;
-  v.className="verdict "+(pass?"pass":"fail");
-  v.textContent=pass?"Strong pass":"Below the bar — review the misses";
+  const v=$("#r-verdict"); v.className="verdict "+(pass?"pass":"fail");
+  v.textContent = pass ? "Passed — next day unlocked" : "Below 80% — review the misses and retake";
 
-  const list=$("#r-list"); list.innerHTML="";
-  list.appendChild($("#quiz-form").cloneNode(true));
+  // record best progress (once passed, stays passed)
+  const prev=PROGRESS[CURRENT];
+  if(!prev || pct>prev.percent) PROGRESS[CURRENT]={percent:pct, passed: pct>=CONFIG.passMark*100 || (prev&&prev.passed) };
+  writeProgress();
 
-  $("#screen-quiz").classList.add("hidden");
-  $("#screen-results").classList.remove("hidden");
-  window.scrollTo({top:0,behavior:"smooth"});
+  const list=$("#r-list"); list.innerHTML=""; list.appendChild($("#quiz-form").cloneNode(true));
+  show("results");
 
   record({
-    trainee:state.trainee,
-    podLeader:state.leader.name,
-    podLeaderSlackId:state.leader.slackId||"",
-    day:DAY,
-    quiz:quiz.title,
-    score:correct,
-    total:t,
-    percent:pct,
-    passed:pass,
-    timestamp:new Date().toISOString(),
-    detail:detail
+    email:USER.email, name:USER.name, trainee:USER.name,
+    podLeader:POD||"(none)", podLeaderSlackId:(CONFIG.podLeaders.find(p=>p.name===POD)||{}).slackId||"",
+    day:CURRENT, quiz:quiz.title, score:correct, total:t, percent:pct, passed:pass,
+    timestamp:new Date().toISOString(), detail:detail
   });
 }
 
 function record(payload){
   const saved=$("#r-saved");
-  if(!CONFIG.endpoint){
-    saved.textContent="Self-check mode — results were not recorded (no endpoint configured).";
-    return;
-  }
-  saved.textContent="Sending your result to your pod leader…";
+  if(!CONFIG.endpoint){ saved.textContent="Saved on this device. (Recording to Slack + Sheet isn't set up yet.)"; return; }
+  saved.textContent="Sending your result…";
   fetch(CONFIG.endpoint,{method:"POST",body:JSON.stringify(payload)})
-    .then(()=>{ saved.textContent="✓ Result sent to "+payload.podLeader+" and logged."; })
-    .catch(()=>{ saved.textContent="⚠ Couldn't send your result automatically. Screenshot this page and send it to your pod leader."; });
+    .then(()=>{ saved.textContent="✓ Result sent to "+(payload.podLeader)+" and logged."; })
+    .catch(()=>{ saved.textContent="⚠ Couldn't send automatically. Screenshot this page for your pod leader."; });
 }
-
-init();
 </script>
 </body>
 </html>
