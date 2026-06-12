@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AdClass PMA Pop Quiz</title>
+<style>
+  :root{
+    --green:#1f9d6b; --green-d:#16805a; --green-l:#e8f6f0;
+    --ink:#15241f; --muted:#5f7068; --line:#e2e8e4;
+    --bg:#f5f8f6; --card:#ffffff; --bad:#d2453f; --bad-l:#fdecec;
+    --good:#1f9d6b; --good-l:#e8f6f0; --shadow:0 1px 3px rgba(20,36,31,.08),0 8px 24px rgba(20,36,31,.06);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.5;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:720px;margin:0 auto;padding:24px 18px 80px}
+  .brand{display:flex;align-items:center;gap:10px;margin-bottom:18px}
+  .brand .dot{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--green),#2bbf88);
+    display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:16px}
+  .brand b{font-size:15px;letter-spacing:.2px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px;box-shadow:var(--shadow)}
+  h1{font-size:22px;margin:0 0 4px}
+  .sub{color:var(--muted);font-size:14px;margin:0 0 20px}
+  label{display:block;font-weight:600;font-size:13px;margin:14px 0 6px}
+  input[type=text],select{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:10px;
+    font-size:15px;background:#fff;color:var(--ink)}
+  input:focus,select:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 3px var(--green-l)}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--green);color:#fff;
+    border:none;border-radius:11px;padding:13px 22px;font-size:15px;font-weight:700;cursor:pointer;transition:.15s}
+  .btn:hover{background:var(--green-d)}
+  .btn:disabled{opacity:.5;cursor:not-allowed}
+  .btn.secondary{background:#fff;color:var(--green-d);border:1px solid var(--green)}
+  .btn.secondary:hover{background:var(--green-l)}
+  .meta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px}
+  .meta-row > div{flex:1;min-width:220px}
+  .progress{height:6px;background:var(--line);border-radius:99px;overflow:hidden;margin:0 0 22px}
+  .progress > span{display:block;height:100%;background:var(--green);width:0;transition:width .3s}
+  .q{margin-bottom:22px;padding-bottom:6px}
+  .q .tag{display:inline-block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;
+    color:var(--green-d);background:var(--green-l);padding:3px 9px;border-radius:99px;margin-bottom:9px}
+  .q .tag.review{color:#8a5a00;background:#fdf2dd}
+  .q .prompt{font-weight:600;font-size:16px;margin-bottom:12px}
+  .q .prompt .num{color:var(--muted);font-weight:700;margin-right:6px}
+  .opt{display:flex;align-items:flex-start;gap:10px;border:1px solid var(--line);border-radius:11px;
+    padding:11px 13px;margin-bottom:8px;cursor:pointer;transition:.12s;background:#fff}
+  .opt:hover{border-color:var(--green);background:var(--green-l)}
+  .opt input{margin-top:3px;accent-color:var(--green)}
+  .opt.locked{cursor:default}
+  .opt.locked:hover{border-color:var(--line);background:#fff}
+  .opt.correct{border-color:var(--good);background:var(--good-l)}
+  .opt.wrong{border-color:var(--bad);background:var(--bad-l)}
+  .opt .mark{margin-left:auto;font-weight:800}
+  .opt.correct .mark{color:var(--good)}
+  .opt.wrong .mark{color:var(--bad)}
+  .explain{font-size:13.5px;color:var(--muted);background:#f7faf8;border-left:3px solid var(--green);
+    padding:9px 12px;border-radius:0 8px 8px 0;margin-top:10px;display:none}
+  .explain.show{display:block}
+  .explain b{color:var(--ink)}
+  .scorebox{text-align:center;padding:10px 0 22px}
+  .scorebox .pct{font-size:46px;font-weight:800;line-height:1}
+  .scorebox .frac{color:var(--muted);font-size:15px;margin-top:6px}
+  .scorebox .verdict{display:inline-block;margin-top:12px;font-weight:700;font-size:13px;padding:5px 14px;border-radius:99px}
+  .verdict.pass{color:var(--good);background:var(--good-l)}
+  .verdict.fail{color:var(--bad);background:var(--bad-l)}
+  .note{font-size:12.5px;color:var(--muted);margin-top:18px;text-align:center}
+  .hidden{display:none}
+  .footer{text-align:center;color:var(--muted);font-size:12px;margin-top:26px}
+  fieldset{border:none;padding:0;margin:0}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand"><span class="dot">A</span><b>AdClass · PMA Training</b></div>
+
+  <!-- ============ START SCREEN ============ -->
+  <div class="card" id="screen-start">
+    <h1 id="start-title">Pop Quiz</h1>
+    <p class="sub" id="start-sub">Quick knowledge check. ~10 minutes. You'll see your score and the correct answers as soon as you submit.</p>
+    <fieldset>
+      <label for="trainee">Your name</label>
+      <input type="text" id="trainee" placeholder="e.g. Jordan Lee" autocomplete="name" />
+      <label for="leader">Your pod leader</label>
+      <select id="leader">
+        <option value="">Select your pod leader…</option>
+      </select>
+    </fieldset>
+    <div style="margin-top:22px"><button class="btn" id="begin">Start quiz →</button></div>
+  </div>
+
+  <!-- ============ QUIZ SCREEN ============ -->
+  <div class="card hidden" id="screen-quiz">
+    <h1 id="quiz-title">Pop Quiz</h1>
+    <p class="sub" id="quiz-sub"></p>
+    <div class="progress"><span id="bar"></span></div>
+    <form id="quiz-form"></form>
+    <div style="margin-top:8px"><button class="btn" id="submit" type="button">Submit answers</button></div>
+    <p class="note" id="answered-note"></p>
+  </div>
+
+  <!-- ============ RESULTS SCREEN ============ -->
+  <div class="card hidden" id="screen-results">
+    <div class="scorebox">
+      <div class="pct" id="r-pct">0%</div>
+      <div class="frac" id="r-frac"></div>
+      <div id="r-verdict"></div>
+    </div>
+    <h1 style="font-size:18px">Review your answers</h1>
+    <p class="sub" id="r-sub">Green = correct, red = what you picked if it was wrong. Read the explanations — these are the things that come back on the Day 20 exam.</p>
+    <div id="r-list"></div>
+    <div style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap">
+      <button class="btn secondary" id="retake">Retake</button>
+    </div>
+    <p class="note" id="r-saved"></p>
+  </div>
+
+  <div class="footer">AdClass PMA Training · Pop Quiz</div>
+</div>
+
+<script>
+/* =====================================================================
+   CONFIG  — the only two things you edit between hiring rounds / setup
+   ===================================================================== */
+const CONFIG = {
+  // Paste your Google Apps Script Web App URL here to turn on recording
+  // (logs to the Google Sheet + posts to Slack). Leave "" for self-check only.
+  endpoint: "",
+
+  // Pass mark used only for the on-screen badge (does not gate anything).
+  passMark: 0.8,
+
+  // Pod leader roster. Update this list each hiring round.
+  // slackId is optional — used to @mention them in Slack (e.g. "U01ABC23DEF").
+  podLeaders: [
+    { name: "Ryan",    slackId: "" },
+    { name: "Anthony", slackId: "" },
+    { name: "Liam",    slackId: "" }
+  ]
+};
+
+/* =====================================================================
+   QUESTION BANK  — keyed by day number. Add days here as you build them.
+   type: "mcq"  -> options[], answer = index of correct option
+   type: "fill" -> accept = [array of acceptable answers, case-insensitive]
+   tag: short label. Use "review" flag for spaced-repetition items.
+   ===================================================================== */
+const QUIZZES = {
+  2: {
+    title: "Day 2 — Strategy Foundations",
+    sub: "Goals, funnel types, awareness stages. ~10 min.",
+    questions: [
+      {
+        type: "mcq",
+        tag: "Day 2 · Core belief",
+        prompt: "A PMA keeps rebuilding the campaign — switching ABO to CBO, re-splitting ad sets, renaming things — but results stay flat. Per AdClass's core belief, where is the real problem most likely hiding?",
+        options: [
+          "The CBO vs. ABO structure",
+          "The creative and the offer",
+          "The number of ad sets",
+          "The bid strategy"
+        ],
+        answer: 1,
+        explain: "Campaign structure is only ~10–20% of results — the other <b>80–90% is creative and offer</b>. If reorganizing the account isn't moving the needle, stop: fix the creative, offer, funnel, or data. As the guide puts it, <b>“if creative can't solve it, it's an economics problem.”</b>"
+      },
+      {
+        type: "mcq",
+        tag: "Day 2 · The system",
+        prompt: "What are the three pillars of the AdClass media-buying system?",
+        options: [
+          "Creative Diversity, Angle Testing, Scaling Winners",
+          "Creative Volume, Audience Targeting, Budget Scaling",
+          "Offer Testing, Funnel Optimization, Bid Strategy",
+          "Angle Testing, Audience Research, Retargeting"
+        ],
+        answer: 0,
+        explain: "<b>Pillar 1 — Creative Diversity</b> (the foundation), <b>Pillar 2 — Angle Testing</b> (the discovery engine), <b>Pillar 3 — Scaling Winners</b>. They typically run simultaneously."
+      },
+      {
+        type: "mcq",
+        tag: "Day 2 · Funnel types",
+        prompt: "Which is the default funnel type for a high-ticket ($1K–$15K), call-based info offer?",
+        options: ["Low-ticket funnel", "VSL funnel", "Lead-magnet funnel", "Webinar funnel"],
+        answer: 1,
+        explain: "The <b>VSL funnel</b> is the default for high-ticket, call-based offers: Ad → (opt-in) → VSL → survey/application → book-a-call → sales call → purchase. The survey/application gates who's allowed to book."
+      },
+      {
+        type: "mcq",
+        tag: "Day 2 · Funnel types",
+        prompt: "In a lead-magnet funnel, the prospect opts in for a free resource. How do those leads typically get converted into customers?",
+        options: [
+          "An outbound call — reps call the leads, supported by email nurture",
+          "They check out for the product right there in the funnel",
+          "They're sent straight to a live webinar to buy",
+          "A retargeting ad closes them automatically"
+        ],
+        answer: 0,
+        explain: "In a lead-magnet funnel (Ad → opt-in → deliver), the “call” usually becomes <b>outbound</b> — reps call the leads — supported by email nurture. You trade a low-friction opt-in for contact info, then do the selling afterward. (Contrast: the <b>low-ticket</b> funnel closes the purchase in-funnel with no call.)"
+      },
+      {
+        type: "mcq",
+        tag: "Day 2 · Optimization events",
+        prompt: "For a $50K/mo book-a-call client, what's the default optimization event?",
+        options: [
+          "Lead",
+          "Schedule / booked call",
+          "Purchase",
+          "Landing page view"
+        ],
+        answer: 1,
+        explain: "Optimize for the <b>furthest-along event you can get volume on</b>. On a call funnel that's <b>Schedule (the booking)</b> — don't optimize for leads unless you're deliberately running a top-of-funnel list-building play."
+      },
+      {
+        type: "mcq",
+        tag: "Day 2 · Awareness stages",
+        prompt: "Your client's audience already knows programs like theirs exist and is actively comparing a few options before buying. Which awareness stage are they in — and what funnel territory does that point to?",
+        options: [
+          "Solution-aware → VSL / webinar / application",
+          "Problem-aware → lead magnet / educational content",
+          "Most aware → retargeting / direct CTA",
+          "Unaware → broad brand-awareness content"
+        ],
+        answer: 0,
+        explain: "<b>Solution-aware</b> = knows solutions exist and is comparing options → VSL / webinar / application territory. Compare <b>problem-aware</b> (knows the problem, not that solutions exist) → lead-magnet / educational territory. Each stage maps to a different funnel and a different optimization event."
+      },
+      {
+        type: "mcq",
+        tag: "Day 2 · Diagnostic ladder",
+        prompt: "An account is stuck and has only tested 4 creative angles in the last 30 days. Which play does it need first?",
+        options: [
+          "Play 1: More, better ads (Creative Diversity)",
+          "Play 2: Better funnel for cold traffic",
+          "Play 3: Add a new platform (Google/YouTube)",
+          "Just raise the budgets"
+        ],
+        answer: 0,
+        explain: "The ladder is in strict order. Step 1: <b>have you genuinely tested 10+ angles in 30 days?</b> Four isn't enough, so the fix is <b>Play 1 — more, better ads</b>. Most stuck accounts haven't actually finished Play 1."
+      },
+      {
+        type: "mcq",
+        tag: "review",
+        prompt: "Review (Day 1): As a PMA (media buyer), what do you own?",
+        options: [
+          "Strategy before the click — the funnel, messaging, and angles",
+          "Everything inside the ad account — building/launching campaigns, daily optimization, budgets, placements, cost control",
+          "The client relationship and the pod's overall plan",
+          "Running the sales calls"
+        ],
+        answer: 1,
+        explain: "The <b>PMA</b> owns everything <b>inside the ad account</b>. The <b>PMS</b> (strategist / pod leader) owns strategy before the click and the client relationship."
+      }
+    ]
+  }
+  // 3: { title: "Day 3 — Ad Auditing", sub: "...", questions: [ ... ] },
+  // ...add the rest here as we roll out
+};
+
+/* ===================================================================== */
+const $ = s => document.querySelector(s);
+const params = new URLSearchParams(location.search);
+const DAY = parseInt(params.get("day") || "2", 10);
+const quiz = QUIZZES[DAY];
+let state = { trainee:"", leader:null };
+
+function init(){
+  // populate pod leaders
+  const sel = $("#leader");
+  CONFIG.podLeaders.forEach((p,i)=>{
+    const o=document.createElement("option"); o.value=String(i); o.textContent=p.name; sel.appendChild(o);
+  });
+  if(!quiz){
+    $("#start-title").textContent="Quiz not found";
+    $("#start-sub").textContent="No quiz is set up for day "+DAY+" yet.";
+    $("#begin").disabled=true; return;
+  }
+  $("#start-title").textContent = quiz.title;
+  $("#begin").addEventListener("click", begin);
+  $("#submit").addEventListener("click", grade);
+  $("#retake").addEventListener("click", ()=>location.reload());
+}
+
+function begin(){
+  const name=$("#trainee").value.trim();
+  const li=$("#leader").value;
+  if(!name){ alert("Please enter your name."); return; }
+  if(li===""){ alert("Please select your pod leader."); return; }
+  state.trainee=name; state.leader=CONFIG.podLeaders[parseInt(li,10)];
+  $("#screen-start").classList.add("hidden");
+  $("#screen-quiz").classList.remove("hidden");
+  $("#quiz-title").textContent=quiz.title;
+  $("#quiz-sub").textContent=quiz.sub;
+  renderQuestions();
+}
+
+function renderQuestions(){
+  const form=$("#quiz-form"); form.innerHTML="";
+  quiz.questions.forEach((q,qi)=>{
+    const wrap=document.createElement("div"); wrap.className="q"; wrap.dataset.qi=qi;
+    const isReview=q.tag==="review";
+    const tagText=isReview?"Review":(q.tag||("Q"+(qi+1)));
+    const tag=document.createElement("span"); tag.className="tag"+(isReview?" review":""); tag.textContent=tagText;
+    wrap.appendChild(tag);
+    const p=document.createElement("div"); p.className="prompt";
+    p.innerHTML='<span class="num">'+(qi+1)+'.</span>'+q.prompt; wrap.appendChild(p);
+
+    if(q.type==="mcq"){
+      q.options.forEach((opt,oi)=>{
+        const lab=document.createElement("label"); lab.className="opt";
+        lab.innerHTML='<input type="radio" name="q'+qi+'" value="'+oi+'"><span>'+opt+'</span>';
+        lab.querySelector("input").addEventListener("change",updateProgress);
+        wrap.appendChild(lab);
+      });
+    } else if(q.type==="fill"){
+      const inp=document.createElement("input"); inp.type="text"; inp.name="q"+qi;
+      inp.placeholder="Type your answer…"; inp.addEventListener("input",updateProgress);
+      wrap.appendChild(inp);
+    }
+    const ex=document.createElement("div"); ex.className="explain"; ex.innerHTML="<b>Why:</b> "+q.explain;
+    wrap.appendChild(ex);
+    form.appendChild(wrap);
+  });
+  updateProgress();
+}
+
+function getAnswer(qi){
+  const q=quiz.questions[qi];
+  if(q.type==="mcq"){
+    const el=document.querySelector('input[name="q'+qi+'"]:checked');
+    return el?parseInt(el.value,10):null;
+  } else {
+    const el=document.querySelector('input[name="q'+qi+'"]');
+    return el && el.value.trim()!==""?el.value.trim():null;
+  }
+}
+function isCorrect(qi){
+  const q=quiz.questions[qi], a=getAnswer(qi);
+  if(a===null) return false;
+  if(q.type==="mcq") return a===q.answer;
+  return q.accept.some(x=>x.toLowerCase()===String(a).toLowerCase());
+}
+function answeredCount(){ let n=0; quiz.questions.forEach((q,i)=>{ if(getAnswer(i)!==null) n++; }); return n; }
+function updateProgress(){
+  const n=answeredCount(), t=quiz.questions.length;
+  $("#bar").style.width=(n/t*100)+"%";
+  $("#answered-note").textContent=n+" of "+t+" answered";
+}
+
+function grade(){
+  const t=quiz.questions.length;
+  if(answeredCount()<t){
+    if(!confirm("You haven't answered every question. Submit anyway?")) return;
+  }
+  let correct=0; const detail=[];
+  quiz.questions.forEach((q,qi)=>{
+    const wrap=document.querySelector('.q[data-qi="'+qi+'"]');
+    const ok=isCorrect(qi); if(ok) correct++;
+    const given=getAnswer(qi);
+    // lock + color
+    if(q.type==="mcq"){
+      wrap.querySelectorAll(".opt").forEach((lab,oi)=>{
+        lab.classList.add("locked");
+        const input=lab.querySelector("input"); input.disabled=true;
+        if(oi===q.answer){ lab.classList.add("correct");
+          const m=document.createElement("span"); m.className="mark"; m.textContent="✓ correct"; lab.appendChild(m); }
+        if(given!==null && oi===given && oi!==q.answer){ lab.classList.add("wrong");
+          const m=document.createElement("span"); m.className="mark"; m.textContent="✗ your answer"; lab.appendChild(m); }
+      });
+    } else {
+      const inp=wrap.querySelector("input"); inp.disabled=true;
+      inp.style.borderColor = ok ? "var(--good)" : "var(--bad)";
+      inp.style.background = ok ? "var(--good-l)" : "var(--bad-l)";
+    }
+    wrap.querySelector(".explain").classList.add("show");
+    detail.push({
+      id:qi+1,
+      topic:q.tag,
+      prompt:q.prompt.replace(/<[^>]+>/g,""),
+      correct:ok,
+      given: given===null ? "(blank)" : (q.type==="mcq"? q.options[given] : given),
+      answer: q.type==="mcq"? q.options[q.answer] : q.accept[0]
+    });
+  });
+
+  const pct=Math.round(correct/t*100);
+  $("#r-pct").textContent=pct+"%";
+  $("#r-frac").textContent=correct+" of "+t+" correct";
+  const v=$("#r-verdict"); const pass=correct/t>=CONFIG.passMark;
+  v.className="verdict "+(pass?"pass":"fail");
+  v.textContent=pass?"Strong pass":"Below the bar — review the misses";
+
+  // clone graded questions into results list
+  const list=$("#r-list"); list.innerHTML="";
+  list.appendChild($("#quiz-form").cloneNode(true));
+
+  $("#screen-quiz").classList.add("hidden");
+  $("#screen-results").classList.remove("hidden");
+  window.scrollTo({top:0,behavior:"smooth"});
+
+  record({
+    trainee:state.trainee,
+    podLeader:state.leader.name,
+    podLeaderSlackId:state.leader.slackId||"",
+    day:DAY,
+    quiz:quiz.title,
+    score:correct,
+    total:t,
+    percent:pct,
+    passed:pass,
+    timestamp:new Date().toISOString(),
+    detail:detail
+  });
+}
+
+function record(payload){
+  const saved=$("#r-saved");
+  if(!CONFIG.endpoint){
+    saved.textContent="Self-check mode — results were not recorded (no endpoint configured).";
+    return;
+  }
+  saved.textContent="Sending your result to your pod leader…";
+  // text/plain avoids a CORS preflight; we don't need to read the response.
+  fetch(CONFIG.endpoint,{method:"POST",body:JSON.stringify(payload)})
+    .then(()=>{ saved.textContent="✓ Result sent to "+payload.podLeader+" and logged."; })
+    .catch(()=>{ saved.textContent="⚠ Couldn't send your result automatically. Screenshot this page and send it to your pod leader."; });
+}
+
+init();
+</script>
+</body>
+</html>
