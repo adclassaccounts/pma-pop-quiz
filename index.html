@@ -187,7 +187,7 @@
 const CONFIG = {
   // "Sign in with Google" OAuth client ID (ends in .apps.googleusercontent.com).
   // Leave "" to use Preview mode (no real sign-in; progress saved on this device only).
-  googleClientId: "",
+  googleClientId: "1038440332727-8tgge7octbj49fao6fcu9vuhpfu508nn.apps.googleusercontent.com",
 
   // Google Apps Script Web App URL — records results AND serves each person's
   // progress so day-locks follow them across devices. Leave "" for device-only mode.
@@ -451,7 +451,12 @@ function boot(){
   $("#retake").onclick = ()=>renderQuiz(CURRENT);
   $("#submit").onclick = grade;
   const cached = localStorage.getItem(LS.user);
-  if(cached){ USER = JSON.parse(cached); PROGRESS = readProgress(); afterLogin(); }
+  if(cached){
+    USER = JSON.parse(cached);
+    // If real Google sign-in is configured, don't honor a leftover Preview session.
+    if(CONFIG.googleClientId && USER.email==="preview@local"){ localStorage.removeItem(LS.user); USER=null; showAuth(); return; }
+    PROGRESS = readProgress(); afterLogin();
+  }
   else showAuth();
 }
 
