@@ -191,7 +191,7 @@ const CONFIG = {
 
   // Google Apps Script Web App URL — records results AND serves each person's
   // progress so day-locks follow them across devices. Leave "" for device-only mode.
-  endpoint: "",
+  endpoint: "https://script.google.com/macros/s/AKfycbwYMCAy_ZfIWGLBafFuRzDXddbJfvGtgLigi3bRnwJexdzoVapgty02uV46sUg-PKFe/exec",
 
   // Pass mark — score needed to unlock the next day.
   passMark: 0.8,
@@ -683,7 +683,7 @@ function record(payload){
   const saved=$("#r-saved");
   if(!CONFIG.endpoint){ saved.textContent="Saved on this device. (Recording to Slack + Sheet isn't set up yet.)"; return; }
   saved.textContent="Sending your result…";
-  fetch(CONFIG.endpoint,{method:"POST",body:JSON.stringify(payload)})
+  fetch(CONFIG.endpoint,{method:"POST",mode:"no-cors",body:JSON.stringify(payload)})
     .then(()=>{ saved.textContent="✓ Result sent to "+(payload.podLeader)+" and logged."; })
     .catch(()=>{ saved.textContent="⚠ Couldn't send automatically. Screenshot this page for your pod leader."; });
 }
