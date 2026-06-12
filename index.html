@@ -94,6 +94,7 @@
     padding:10px 13px;border-radius:0 8px 8px 0;margin-top:11px;display:none}
   .explain.show{display:block}
   .explain b{color:var(--ink)}
+  .multi-hint{font-size:12px;color:var(--muted);margin:4px 0 0 2px}
   .scorebox{text-align:center;padding:10px 0 24px}
   .scorebox .pct{font-size:48px;font-weight:800;line-height:1;color:var(--ink)}
   .scorebox .frac{color:var(--muted);font-size:15px;margin-top:6px}
@@ -214,7 +215,7 @@ const CONFIG = {
 const QUIZZES = {
   2: {
     title: "Day 2 — Strategy Foundations",
-    sub: "Goals, funnel types, awareness stages. ~10 min.",
+    sub: "Goals, funnel types, awareness stages. ~12 min.",
     questions: [
       {
         type: "mcq",
@@ -230,6 +231,13 @@ const QUIZZES = {
         explain: "Campaign structure is only ~10–20% of results — the other <b>80–90% is creative and offer</b>. If reorganizing the account isn't moving the needle, stop: fix the creative, offer, funnel, or data. As the guide puts it, <b>“if creative can't solve it, it's an economics problem.”</b>"
       },
       {
+        type: "fill",
+        tag: "Day 2 · Core belief",
+        prompt: "Fill in the blank: campaign structure drives only ~10–20% of results — the other 80–90% comes from creative and ______.",
+        accept: ["offer", "the offer", "offers", "offer economics", "economics"],
+        explain: "80–90% of results come from <b>creative and offer</b>. The algorithm finds the people; your job is to feed it better creative, data, and landing pages."
+      },
+      {
         type: "mcq",
         tag: "Day 2 · The system",
         prompt: "What are the three pillars of the AdClass media-buying system?",
@@ -241,6 +249,21 @@ const QUIZZES = {
         ],
         answer: 0,
         explain: "<b>Pillar 1 — Creative Diversity</b> (the foundation), <b>Pillar 2 — Angle Testing</b> (the discovery engine), <b>Pillar 3 — Scaling Winners</b>. They typically run simultaneously."
+      },
+      {
+        type: "multi",
+        tag: "Day 2 · Funnel types",
+        prompt: "Select all of AdClass's four core funnel types.",
+        options: [
+          "VSL funnel",
+          "Webinar funnel",
+          "Lead-magnet funnel",
+          "Low-ticket funnel",
+          "Retargeting funnel",
+          "Awareness funnel"
+        ],
+        answer: [0, 1, 2, 3],
+        explain: "The four are <b>VSL, Webinar, Lead-magnet, and Low-ticket</b>. “Retargeting” is a bottom-of-funnel play (not one of the four), and “Awareness funnel” isn't a named type at AdClass."
       },
       {
         type: "mcq",
@@ -264,29 +287,36 @@ const QUIZZES = {
         explain: "In a lead-magnet funnel (Ad → opt-in → deliver), the “call” usually becomes <b>outbound</b> — reps call the leads — supported by email nurture. You trade a low-friction opt-in for contact info, then do the selling afterward. (Contrast: the <b>low-ticket</b> funnel closes the purchase in-funnel with no call.)"
       },
       {
-        type: "mcq",
+        type: "fill",
         tag: "Day 2 · Optimization events",
-        prompt: "For a $50K/mo book-a-call client, what's the default optimization event?",
+        prompt: "Fill in the blank: on a $50K/mo book-a-call funnel, you optimize for the furthest-along event you can get volume on — the ______ event. (one or two words)",
+        accept: ["schedule", "scheduled", "booked call", "book a call", "booking", "call booked", "schedule / booked call", "schedule event", "scheduled call", "calls", "call", "book a call (schedule)"],
+        explain: "On a call funnel, optimize for <b>Schedule</b> (the booking) — the furthest-along event you can get volume on. Don't optimize for leads unless you're deliberately running a top-of-funnel list-building play."
+      },
+      {
+        type: "mcq",
+        tag: "Day 2 · Awareness stages",
+        prompt: "A problem-aware prospect knows they have a problem but doesn't yet know solutions exist. Which ad headline is aimed at them?",
         options: [
-          "Lead",
-          "Schedule / booked call",
-          "Purchase",
-          "Landing page view"
+          "“See why agents are leaving [Competitor] for our listing system”",
+          "“The real reason your listings keep going stale (and it's not your photos)”",
+          "“You've watched the demo — here's 20% off, this week only”",
+          "“Book your strategy call — only 3 slots left”"
         ],
         answer: 1,
-        explain: "Optimize for the <b>furthest-along event you can get volume on</b>. On a call funnel that's <b>Schedule (the booking)</b> — don't optimize for leads unless you're deliberately running a top-of-funnel list-building play."
+        explain: "Problem-aware headlines agitate the problem and stir curiosity <b>without naming a solution</b> (lead-magnet / educational territory). Comparing named solutions = solution-aware; direct CTAs to people who already know you = most-aware."
       },
       {
         type: "mcq",
         tag: "Day 2 · Awareness stages",
         prompt: "Your client's audience already knows programs like theirs exist and is actively comparing a few options before buying. Which awareness stage are they in — and what funnel territory does that point to?",
         options: [
-          "Solution-aware → VSL / webinar / application",
           "Problem-aware → lead magnet / educational content",
+          "Solution-aware → VSL / webinar / application",
           "Most aware → retargeting / direct CTA",
           "Unaware → broad brand-awareness content"
         ],
-        answer: 0,
+        answer: 1,
         explain: "<b>Solution-aware</b> = knows solutions exist and is comparing options → VSL / webinar / application territory. Compare <b>problem-aware</b> (knows the problem, not that solutions exist) → lead-magnet / educational territory. Each stage maps to a different funnel and a different optimization event."
       },
       {
@@ -294,12 +324,12 @@ const QUIZZES = {
         tag: "Day 2 · Diagnostic ladder",
         prompt: "An account is stuck and has only tested 4 creative angles in the last 30 days. Which play does it need first?",
         options: [
-          "Play 1: More, better ads (Creative Diversity)",
+          "Just raise the budgets",
           "Play 2: Better funnel for cold traffic",
-          "Play 3: Add a new platform (Google/YouTube)",
-          "Just raise the budgets"
+          "Play 1: More, better ads (Creative Diversity)",
+          "Play 3: Add a new platform (Google/YouTube)"
         ],
-        answer: 0,
+        answer: 2,
         explain: "The ladder is in strict order. Step 1: <b>have you genuinely tested 10+ angles in 30 days?</b> Four isn't enough, so the fix is <b>Play 1 — more, better ads</b>. Most stuck accounts haven't actually finished Play 1."
       },
       {
@@ -1410,9 +1440,17 @@ function renderQuiz(day){
         lab.querySelector("input").addEventListener("change",updateProgress);
         wrap.appendChild(lab);
       });
+    } else if(q.type==="multi"){
+      q.options.forEach((opt,oi)=>{
+        const lab=document.createElement("label"); lab.className="opt";
+        lab.innerHTML='<input type="checkbox" name="q'+qi+'" value="'+oi+'"><span>'+opt+'</span>';
+        lab.querySelector("input").addEventListener("change",updateProgress);
+        wrap.appendChild(lab);
+      });
+      const hint=document.createElement("div"); hint.className="multi-hint"; hint.textContent="✓ Select all that apply"; wrap.appendChild(hint);
     } else if(q.type==="fill"){
       const inp=document.createElement("input"); inp.type="text"; inp.name="q"+qi;
-      inp.placeholder="Type your answer…"; inp.addEventListener("input",updateProgress); wrap.appendChild(inp);
+      inp.placeholder="Type your answer…"; inp.autocomplete="off"; inp.addEventListener("input",updateProgress); wrap.appendChild(inp);
     }
     const ex=document.createElement("div"); ex.className="explain"; ex.innerHTML="<b>Why:</b> "+q.explain; wrap.appendChild(ex);
     form.appendChild(wrap);
@@ -1422,12 +1460,14 @@ function renderQuiz(day){
 function getAnswer(qi){
   const q=QUIZZES[CURRENT].questions[qi];
   if(q.type==="mcq"){ const el=document.querySelector('input[name="q'+qi+'"]:checked'); return el?parseInt(el.value,10):null; }
+  if(q.type==="multi"){ const els=document.querySelectorAll('input[name="q'+qi+'"]:checked'); if(!els.length) return null; return Array.prototype.map.call(els,function(e){return parseInt(e.value,10);}).sort(function(a,b){return a-b;}); }
   const el=document.querySelector('input[name="q'+qi+'"]'); return el&&el.value.trim()!==""?el.value.trim():null;
 }
 function isCorrect(qi){
   const q=QUIZZES[CURRENT].questions[qi], a=getAnswer(qi);
   if(a===null) return false;
   if(q.type==="mcq") return a===q.answer;
+  if(q.type==="multi"){ const c=q.answer.slice().sort(function(x,y){return x-y;}); return a.length===c.length && a.every(function(v,i){return v===c[i];}); }
   return q.accept.some(x=>x.toLowerCase()===String(a).toLowerCase());
 }
 function answeredCount(){ let n=0; QUIZZES[CURRENT].questions.forEach((q,i)=>{ if(getAnswer(i)!==null) n++; }); return n; }
@@ -1445,20 +1485,25 @@ function grade(){
   quiz.questions.forEach((q,qi)=>{
     const wrap=document.querySelector('.q[data-qi="'+qi+'"]'); const ok=isCorrect(qi); if(ok) correct++;
     const given=getAnswer(qi);
-    if(q.type==="mcq"){
+    if(q.type==="mcq" || q.type==="multi"){
+      const correctSet = q.type==="multi" ? q.answer : [q.answer];
+      const givenSet = given===null ? [] : (q.type==="multi" ? given : [given]);
       wrap.querySelectorAll(".opt").forEach((lab,oi)=>{
         lab.classList.add("locked"); lab.querySelector("input").disabled=true;
-        if(oi===q.answer){ lab.classList.add("correct"); const m=document.createElement("span"); m.className="mark"; m.textContent="✓ correct"; lab.appendChild(m); }
-        if(given!==null && oi===given && oi!==q.answer){ lab.classList.add("wrong"); const m=document.createElement("span"); m.className="mark"; m.textContent="✗ your answer"; lab.appendChild(m); }
+        const isC = correctSet.indexOf(oi)>=0, chosen = givenSet.indexOf(oi)>=0;
+        if(isC){ lab.classList.add("correct"); const m=document.createElement("span"); m.className="mark"; m.textContent = chosen?"✓ correct":"✓ answer"; lab.appendChild(m); }
+        if(chosen && !isC){ lab.classList.add("wrong"); const m=document.createElement("span"); m.className="mark"; m.textContent="✗ your pick"; lab.appendChild(m); }
       });
     } else {
-      const inp=wrap.querySelector("input"); inp.disabled=true;
+      const inp=wrap.querySelector("input"); inp.setAttribute("value", inp.value); inp.disabled=true;
       inp.style.borderColor = ok?"var(--good)":"var(--bad)"; inp.style.background = ok?"var(--good-l)":"var(--bad-l)";
     }
     wrap.querySelector(".explain").classList.add("show");
-    detail.push({ id:qi+1, topic:q.tag, prompt:q.prompt.replace(/<[^>]+>/g,""), correct:ok,
-      given: given===null?"(blank)":(q.type==="mcq"?q.options[given]:given),
-      answer: q.type==="mcq"?q.options[q.answer]:q.accept[0] });
+    let givenText, answerText;
+    if(q.type==="mcq"){ givenText = given===null?"(blank)":q.options[given]; answerText=q.options[q.answer]; }
+    else if(q.type==="multi"){ givenText = given===null?"(blank)":given.map(function(i){return q.options[i];}).join("; "); answerText=q.answer.map(function(i){return q.options[i];}).join("; "); }
+    else { givenText = given===null?"(blank)":given; answerText=q.accept[0]; }
+    detail.push({ id:qi+1, topic:q.tag, prompt:q.prompt.replace(/<[^>]+>/g,""), correct:ok, given:givenText, answer:answerText });
   });
 
   const pct=Math.round(correct/t*100), pass=correct/t>=CONFIG.passMark;
