@@ -538,17 +538,26 @@ const QUIZZES = {
         explain: "<b>Messaging</b> (headline/copy), <b>design</b> (layout, colors, fonts), and <b>structure</b> (testimonials, step order, opt-in placement). Test one at a time. Fixing one weak step — e.g. opt-in 15% → 30% — can halve cost-per-call without touching the ads."
       },
       {
-        type: "mcq",
+        type: "multi",
         tag: "Day 4 · Mobile audit",
-        prompt: "More than 60% of traffic is mobile. What belongs on your mobile-view audit?",
+        prompt: "More than 60% of traffic is mobile. Select all the checks that belong on a mobile-view funnel audit.",
         options: [
-          "Whether the form works, the video autoplays, nothing's broken, and the page loads under ~4s",
-          "The desktop hero image resolution",
-          "Your ad account's daily spend limit",
-          "The CBO vs. ABO setting"
+          "Does the opt-in form actually work on mobile?",
+          "Does the video autoplay / play correctly?",
+          "Is anything visually broken or cut off on a phone?",
+          "Does the page load fast enough (no long delay)?",
+          "What's the desktop hero image's resolution?",
+          "What's the campaign's CBO-vs-ABO setting?"
         ],
-        answer: 0,
-        explain: "Open mobile view and check the form works, the video autoplays, nothing's broken, and load time is reasonable (over ~4s is a red flag). Most of your traffic experiences the funnel here."
+        answer: [0, 1, 2, 3],
+        explain: "Most of your traffic experiences the funnel on a phone, so check the form works, the video autoplays, nothing's broken, and the page loads fast. Desktop image resolution and the campaign's budget setting aren't part of a mobile funnel audit."
+      },
+      {
+        type: "fill",
+        tag: "Day 4 · Page speed",
+        prompt: "Fill in the blank: on a funnel audit, a landing page that takes longer than about ___ seconds to load is a red flag. (a number)",
+        accept: ["4", "4s", "four", "4 seconds", "4 sec", "4secs"],
+        explain: "Over ~<b>4 seconds</b> of load time is a red flag. Slow pages bounce traffic, and Meta reads that bounce as a negative signal — narrowing delivery and pushing costs up."
       },
       {
         type: "mcq",
@@ -1326,6 +1335,253 @@ const QUIZZES = {
     ]
   },
 
+  20: {
+    title: "Day 20 — End-of-Month Examination (Part 1: Written)",
+    sub: "Cumulative, closed-book. 22 questions across the month. You need 85% to pass. (Parts 2 & 3 — the live audit + verbal walkthrough — are done with your pod leader.)",
+    passMark: 0.85,
+    questions: [
+      {
+        type: "fill",
+        tag: "Exam · Core belief",
+        prompt: "Campaign structure drives ~10–20% of results; the other 80–90% is creative and ______.",
+        accept: ["offer", "the offer", "offers", "economics", "offer economics"],
+        explain: "80–90% is creative and <b>offer</b>. If creative can't solve it, it's an economics problem."
+      },
+      {
+        type: "multi",
+        tag: "Exam · The three pillars",
+        prompt: "Select the three pillars of the AdClass media-buying system.",
+        options: ["Creative Diversity", "Angle Testing", "Scaling Winners", "Audience Targeting", "Budget Pacing"],
+        answer: [0, 1, 2],
+        explain: "Creative Diversity (foundation), Angle Testing (discovery), Scaling Winners."
+      },
+      {
+        type: "mcq",
+        tag: "Exam · Diagnostic ladder",
+        prompt: "Walk the diagnostic ladder for a stuck account in the correct order:",
+        options: [
+          "Play 1: more/better ads → Play 2: better funnel for cold → Play 3: new platform",
+          "Play 1: new platform → Play 2: better funnel → Play 3: more ads",
+          "Play 1: raise budgets → Play 2: more ads → Play 3: new funnel",
+          "Play 1: better funnel → Play 2: more ads → Play 3: new platform"
+        ],
+        answer: 0,
+        explain: "Strict order: creative diversity first (most accounts never finish it), then a better funnel for cold, then — rarely — a new platform."
+      },
+      {
+        type: "mcq",
+        tag: "Exam · Stuck-account patterns",
+        prompt: "Surface metrics look fine, but lead quality has slid for months and the sales team is complaining. Which pattern?",
+        options: ["The ceiling account", "The slow-rot account", "The over-reliant account", "The saturation account"],
+        answer: 1,
+        explain: "Slow-rot: healthy surface metrics, quietly degrading quality — usually a data/pixel problem."
+      },
+      {
+        type: "fill",
+        tag: "Exam · Kill criteria",
+        prompt: "Kill criteria: spend ___× your KPI on an ad set before deciding it's a loser. (a number)",
+        accept: ["3", "3x", "x3", "three", "3 times", "3×"],
+        explain: "3× KPI (≈$900 at a $300 target). Cut faster only if a leading indicator is badly off on day one."
+      },
+      {
+        type: "mcq",
+        tag: "Exam · 14-day rule",
+        prompt: "You changed the optimization event 4 days ago and numbers look worse. Do you revert?",
+        options: [
+          "No — Meta takes ~14 days to recalibrate after a pixel change; reverting at day 4 tells you nothing",
+          "Yes, revert immediately",
+          "Yes, and change a few other things too",
+          "Double the budget to speed it up"
+        ],
+        answer: 0,
+        explain: "The 14-day rule. Hold pixel/optimization changes ~14 days before judging."
+      },
+      {
+        type: "mcq",
+        tag: "Exam · Multi-funnel",
+        prompt: "A single book-a-call funnel has hit a frequency ceiling and won't scale. Best fix?",
+        options: [
+          "Raise the budget on the existing funnel",
+          "Run multiple funnels at different audience stages, each with its own optimization event",
+          "Narrow the audience targeting",
+          "Lower the bid cap"
+        ],
+        answer: 1,
+        explain: "Different funnels (TOF lead magnet, MOF VSL, BOF retargeting) open pockets a single funnel can't reach."
+      },
+      {
+        type: "mcq",
+        tag: "Exam · Starved pixel",
+        prompt: "You're optimizing for Submit Application but only 1–3 events show in the last 7 days. First move?",
+        options: [
+          "Launch 20 fresh creatives",
+          "Confirm the optimization event is actually firing reliably (CAPI / automation) before changing anything",
+          "Raise the budget to force conversions",
+          "Switch to a new CAPI source today"
+        ],
+        answer: 1,
+        explain: "Starved pixel — audit the firing mechanism first; don't touch creative or budget yet."
+      },
+      {
+        type: "mcq",
+        tag: "Exam · Exclusions",
+        prompt: "Why exclude past purchasers and booked calls even on Advantage+ broad?",
+        options: [
+          "Because they cost more to reach",
+          "They're guardrails — they stop Meta recycling your existing pipeline instead of finding new people",
+          "Because Meta requires it",
+          "Because it lowers CPM"
+        ],
+        answer: 1,
+        explain: "Exclusions are guardrails for prospecting, not targeting inputs."
+      },
+      {
+        type: "mcq",
+        tag: "Exam · Scaling",
+        prompt: "An info/high-ticket test campaign is outperforming your scaled CBO. Should you migrate its post-IDs into the CBO?",
+        options: [
+          "No — for info/high-ticket, scale in place; moving it makes Meta re-find a pocket and spikes call-cost volatility",
+          "Yes — always consolidate winners into a CBO",
+          "Yes — CBO is always cheaper",
+          "Delete the test and rebuild in the CBO"
+        ],
+        answer: 0,
+        explain: "Scale in place for info/high-ticket. Post-ID-into-CBO suits high-volume e-com/low-ticket."
+      },
+      {
+        type: "mcq",
+        tag: "Exam · Warning signs",
+        prompt: "A $13 CPM appears on a campaign meant to reach $150K+ earners. How do you read it?",
+        options: [
+          "A warning — you've drifted into a cheap, low-quality placement/pocket that won't convert",
+          "A win — scale it hard",
+          "Neutral — CPM means nothing",
+          "Proof the pixel is broken"
+        ],
+        answer: 0,
+        explain: "Suspiciously low CPM on a high-value campaign = cheap traffic that won't convert. Investigate."
+      },
+      {
+        type: "mcq",
+        tag: "Exam · Warning signs",
+        prompt: "An ad has a 2% CTR, 35% hook rate, and gorgeous thumb-stop — but zero sales. Do?",
+        options: [
+          "Scale it — sales will come",
+          "Kill it — engagement isn't the right attention; the wrong people clicking is worse than no one",
+          "Keep it at low budget for social proof",
+          "Lower the budget and wait a month"
+        ],
+        answer: 1,
+        explain: "Vanity-metrics trap — kill it."
+      },
+      {
+        type: "mcq",
+        tag: "Exam · Optimization events",
+        prompt: "For a $50K/mo book-a-call client, the default optimization event is…",
+        options: ["Lead", "Schedule / booked call", "Purchase", "Landing page view"],
+        answer: 1,
+        explain: "Furthest-along event you can get volume on — Schedule, on a call funnel."
+      },
+      {
+        type: "mcq",
+        tag: "Exam · Funnel types",
+        prompt: "Which funnel type closes the purchase inside the funnel with no sales call?",
+        options: ["VSL funnel", "Low-ticket funnel", "Webinar funnel", "Lead-magnet funnel"],
+        answer: 1,
+        explain: "Low-ticket: ad → sales page → checkout → one-time offer, no call."
+      },
+      {
+        type: "mcq",
+        tag: "Exam · Awareness stages",
+        prompt: "A prospect knows solutions exist and is comparing a few options before buying. Which stage?",
+        options: ["Problem-aware", "Solution-aware", "Unaware", "Most-aware / product-aware"],
+        answer: 1,
+        explain: "Solution-aware → VSL / webinar / application territory."
+      },
+      {
+        type: "mcq",
+        tag: "Exam · Lead magnet",
+        prompt: "When and on what do you judge a lead magnet?",
+        options: [
+          "Day 14, on cost-per-lead",
+          "Day 60, on its pipeline contribution",
+          "Day 7, on direct ROAS",
+          "Day 30, on immediate revenue"
+        ],
+        answer: 1,
+        explain: "Day 60, on pipeline contribution — not CPL/revenue at day 14."
+      },
+      {
+        type: "mcq",
+        tag: "Exam · Landing page",
+        prompt: "Same ad, same pixel, but a masculine vs. feminine page design. What happens to delivery?",
+        options: [
+          "Nothing — the page doesn't affect delivery",
+          "Meta serves them to different audiences — the page is a targeting signal",
+          "The feminine one gets rejected",
+          "Delivery is identical"
+        ],
+        answer: 1,
+        explain: "The landing page is a targeting signal; Meta reads its copy and design."
+      },
+      {
+        type: "mcq",
+        tag: "Exam · Valid tests",
+        prompt: "You test a new hook, new image, and new targeting all at once and a winner pops. What did you learn?",
+        options: [
+          "Nothing reliable — too many variables changed at once",
+          "That the image caused the win",
+          "That the targeting caused the win",
+          "Everything — it was a clean test"
+        ],
+        answer: 0,
+        explain: "Isolate one variable. If you're testing everything, you're testing nothing."
+      },
+      {
+        type: "mcq",
+        tag: "Exam · Competitor research",
+        prompt: "In the Ad Library, what's the quickest tell a competitor's ad is probably a winner?",
+        options: ["It's been running 30+ days", "It has the most likes", "It's their newest ad", "It uses the most colors"],
+        answer: 0,
+        explain: "Longevity (30+ days). Confirm with a quick traffic check."
+      },
+      {
+        type: "multi",
+        tag: "Exam · Reading data",
+        prompt: "Select all of the following that are LEADING indicators (move within 1–3 days).",
+        options: ["CPM", "Link CTR", "CPC", "Hook rate (3-sec views)", "Cost per call", "ROAS"],
+        answer: [0, 1, 2, 3],
+        explain: "Leading: CPM, CTR, CPC, hook rate, scroll-stop. Lagging: cost per call, ROAS, close rate."
+      },
+      {
+        type: "mcq",
+        tag: "Exam · ABO vs CBO",
+        prompt: "What's the actual difference between ABO and CBO?",
+        options: [
+          "ABO controls budget per ad set; CBO lets Meta allocate across ad sets — same auction, same algorithm",
+          "ABO uses a cheaper auction than CBO",
+          "CBO turns off the learning phase",
+          "ABO is for Google; CBO is for Meta"
+        ],
+        answer: 0,
+        explain: "Just organization — same auction. ABO for control/testing, CBO for scaling proven concepts."
+      },
+      {
+        type: "mcq",
+        tag: "Exam · Day-1 reads",
+        prompt: "You launched 4 ads yesterday; day-1 CPC is 2–3× your normal. Wait for full 3× KPI spend, or pull?",
+        options: [
+          "Pull — when leading indicators are badly off on day one, you don't need to wait for full 3× KPI",
+          "Wait the full 3× KPI no matter what",
+          "Double the budget to gather data faster",
+          "Switch the optimization event immediately"
+        ],
+        answer: 0,
+        explain: "Obvious day-one losers (CPC 2–3× normal) get cut early; the 3× rule is for ambiguous cases."
+      }
+    ]
+  },
+
   21: {
     title: "Google Ads — Search Campaigns (Optional)",
     sub: "Bonus, post-exam. High-intent search, bot prevention, Hyros tracking. ~10 min.",
@@ -1665,15 +1921,16 @@ function grade(){
     detail.push({ id:qi+1, topic:q.tag, prompt:q.prompt.replace(/<[^>]+>/g,""), correct:ok, given:givenText, answer:answerText });
   });
 
-  const pct=Math.round(correct/t*100), pass=correct/t>=CONFIG.passMark;
+  const mark = quiz.passMark || CONFIG.passMark, markPct = Math.round(mark*100);
+  const pct=Math.round(correct/t*100), pass=correct/t>=mark;
   $("#r-pct").textContent=pct+"%";
   $("#r-frac").textContent=correct+" of "+t+" correct";
   const v=$("#r-verdict"); v.className="verdict "+(pass?"pass":"fail");
-  v.textContent = pass ? "Passed — next day unlocked" : "Below 80% — review the misses and retake";
+  v.textContent = pass ? ("Passed (needed "+markPct+"%)") : ("Below "+markPct+"% — review the misses and retake");
 
   // record best progress (once passed, stays passed)
   const prev=PROGRESS[CURRENT];
-  if(!prev || pct>prev.percent) PROGRESS[CURRENT]={percent:pct, passed: pct>=CONFIG.passMark*100 || (prev&&prev.passed) };
+  if(!prev || pct>prev.percent) PROGRESS[CURRENT]={percent:pct, passed: pct>=markPct || (prev&&prev.passed) };
   writeProgress();
 
   const list=$("#r-list"); list.innerHTML=""; list.appendChild($("#quiz-form").cloneNode(true));
