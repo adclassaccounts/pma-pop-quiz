@@ -256,8 +256,114 @@ const QUIZZES = {
         explain: "The <b>PMA</b> owns everything <b>inside the ad account</b>. The <b>PMS</b> (strategist / pod leader) owns strategy before the click and the client relationship."
       }
     ]
+  },
+
+  3: {
+    title: "Day 3 — Ad Auditing",
+    sub: "Diagnosing why an account is stuck — before you touch anything. ~10 min.",
+    questions: [
+      {
+        type: "mcq",
+        tag: "Day 3 · Stuck-account patterns",
+        prompt: "An account's surface numbers look fine — CTR is steady, cost per lead is flat — but the sales team has been complaining for months that lead quality is sliding. Which 'stuck account' pattern is this?",
+        options: [
+          "The ceiling account",
+          "The slow-rot account",
+          "The over-reliant account",
+          "The saturation account"
+        ],
+        answer: 1,
+        explain: "<b>The slow-rot account</b>: surface metrics look healthy while lead quality quietly degrades for months. (The <b>ceiling</b> account stalls around $4–5K/day; the <b>over-reliant</b> account leans on one ad/funnel/style.) Slow rot usually traces back to a data/pixel-quality problem, not creative."
+      },
+      {
+        type: "mcq",
+        tag: "Day 3 · Kill criteria",
+        prompt: "Your target cost per call is $300. Per AdClass kill criteria, roughly how much should an ad set be allowed to spend before you decide it's a loser?",
+        options: ["$300", "$600", "$900", "$1,500"],
+        answer: 2,
+        explain: "The rule is <b>spend 3× your KPI</b> before deciding. At a $300 cost-per-call target, let the ad set spend ~<b>$900</b> first — enough data to judge with confidence. (You can cut faster if click cost is 2–3× normal on day one.)"
+      },
+      {
+        type: "mcq",
+        tag: "Day 3 · Reading the data",
+        prompt: "On a conversion campaign meant to find $150k+ earners, you spot a CPM about a third of your usual. Why is that usually a warning sign, not a win?",
+        options: [
+          "A low-quality placement or audience pocket (often FB Reels) is winning the cheap auctions — that traffic won't convert",
+          "It means your creative is finally efficient, so you should scale it hard",
+          "Meta lowered ad prices that week, so enjoy it",
+          "Low CPM is always good — there's nothing to investigate"
+        ],
+        answer: 0,
+        explain: "CPM tracks audience quality. A suspiciously cheap CPM usually means you've drifted into a low-value placement/pocket (FB Reels, Audience Network) whose cheap clicks won't convert. <b>Investigate the cheap traffic — don't celebrate it.</b>"
+      },
+      {
+        type: "mcq",
+        tag: "Day 3 · Reading the data",
+        prompt: "An ad has a 2% CTR, a 35% hook rate, and a gorgeous thumb-stop ratio — but it hasn't produced a single sale. What's the AdClass call?",
+        options: [
+          "Scale it — those metrics mean sales will come",
+          "Keep it running at low budget for the social proof",
+          "Kill it — engagement isn't the right attention, and the wrong people clicking is worse than no one",
+          "Duplicate it into a CBO to find a better pocket"
+        ],
+        answer: 2,
+        explain: "The <b>vanity-metrics trap</b>: engagement shows the ad got attention, not the <i>right</i> attention. The wrong people clicking burns budget and feeds Meta bad signal about who to find. Great surface metrics + zero conversions = kill it."
+      },
+      {
+        type: "mcq",
+        tag: "Day 3 · Starved pixel",
+        prompt: "You're auditing an account optimized for 'Submit Application,' but Events Manager shows only 1–3 of those events in the last 7 days. What's the FIRST fix?",
+        options: [
+          "Launch 20 fresh creatives to jump-start conversions",
+          "Audit that the optimization event is actually firing reliably (CAPI / automation) before changing anything else",
+          "Raise the budget to force more conversions through",
+          "Switch to a brand-new CAPI source that same day"
+        ],
+        answer: 1,
+        explain: "That volume means a <b>starved pixel</b>. First, <b>confirm the event is firing reliably</b> (CAPI, GTM, GHL automation) — don't touch creative or budget yet. If it's firing fine but volume is still low, then move one step up the funnel to a higher-volume qualified event."
+      },
+      {
+        type: "mcq",
+        tag: "Day 3 · Process",
+        prompt: "Your pod leader assigns you a live account and you run the full 7-step audit framework. What's the Day 3 deliverable?",
+        options: [
+          "A diagnosis — which stuck-account pattern it is and which play it needs — with no changes proposed yet",
+          "A complete list of changes to implement in the account immediately",
+          "A fresh batch of creative to launch today",
+          "A scaling plan to take it to $50K/day"
+        ],
+        answer: 0,
+        explain: "Day 3 stops at <b>diagnosis only</b>: name the pattern, name the play, flag 1–2 leading-indicator risks. Proposing and making changes comes later. The whole point is <i>diagnose before you fix</i>."
+      },
+      {
+        type: "mcq",
+        tag: "review",
+        prompt: "Review (Day 2): A teammate wants to spend the whole week perfecting campaign structure to fix an account's flat results. Per AdClass's core belief, is that the highest-leverage use of their time?",
+        options: [
+          "Yes — structure is the main driver of results",
+          "No — structure is only ~10–20% of results; creative and offer drive 80–90%",
+          "Yes — structure and bidding together are about half of results",
+          "No — audience targeting settings are what matter most"
+        ],
+        answer: 1,
+        explain: "Structure is only ~10–20% of results. The leverage is in <b>creative and offer</b> (80–90%). Reorganizing the account rarely fixes flat performance."
+      },
+      {
+        type: "mcq",
+        tag: "review",
+        prompt: "Review (Day 1): A new campaign needs to be built and launched inside the ad account. On a pod, whose core responsibility is that?",
+        options: [
+          "The PMA (media buyer)",
+          "The PMS (strategist / pod leader)",
+          "Either — it's shared 50/50",
+          "The client"
+        ],
+        answer: 0,
+        explain: "Building, launching, and optimizing inside the ad account is the <b>PMA's</b> job. The PMS owns strategy before the click and the client relationship."
+      }
+    ]
   }
-  // 3: { title: "Day 3 — Ad Auditing", sub: "...", questions: [ ... ] },
+  // 4: { title: "Day 4 — Funnel Auditing", sub: "...", questions: [ ... ] },
   // ...add the rest here as we roll out
 };
 
