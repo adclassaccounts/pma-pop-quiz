@@ -838,9 +838,394 @@ const QUIZZES = {
         explain: "Day 60, on pipeline contribution — not CPL or revenue at day 14. The payoff shows up as cheaper booked calls weeks later."
       }
     ]
+  },
+
+  8: {
+    title: "Day 8 — AI Foundations at AdClass",
+    sub: "How AdClass uses AI; Claude, skills, and the copy stack. ~10 min.",
+    questions: [
+      {
+        type: "mcq",
+        tag: "Day 8 · Core principle",
+        prompt: "What's AdClass's core principle about how it uses AI?",
+        options: [
+          "AI is a replacement for media buyers",
+          "AI is leverage — do more of the work that compounds, less of the work that doesn't (manual entry, reformatting)",
+          "AI is only useful for writing copy",
+          "AI is a toy, not for real client work"
+        ],
+        answer: 1,
+        explain: "AI is <b>leverage, not replacement</b>. Use it to do more of the compounding work (creative iteration, data analysis, audit speed) and less of the busywork that doesn't move the needle."
+      },
+      {
+        type: "mcq",
+        tag: "Day 8 · AI in your day",
+        prompt: "Which is a real place AI shows up in a PMA's day at AdClass?",
+        options: [
+          "Generating new creative angle variants from winning ad transcripts + landing-page context",
+          "Auto-approving client invoices",
+          "Setting the client's pricing for them",
+          "Replacing the pod leader's strategy calls"
+        ],
+        answer: 0,
+        explain: "Everyday PMA uses: creative iteration (transcripts + LP → new angles), audit acceleration (find anomalies in a PPC sheet), brief writing, and meeting prep. It speeds the work; it doesn't replace judgment."
+      },
+      {
+        type: "mcq",
+        tag: "Day 8 · The skill stack",
+        prompt: "Which skill writes a Facebook primary text, a video script, AND a landing-page headline all at once?",
+        options: [
+          "human-voice-copy",
+          "drm-ad-copy",
+          "three-point-copy-formula",
+          "ig-viral-scraper"
+        ],
+        answer: 2,
+        explain: "<b>three-point-copy-formula</b> produces the three funnel assets from one sitting. (drm-ad-copy is the master ad-copy framework; human-voice-copy is the final humanizing pass.)"
+      },
+      {
+        type: "mcq",
+        tag: "Day 8 · The skill stack",
+        prompt: "Why run human-voice-copy AFTER the other copy skills, not before?",
+        options: [
+          "It's the final pass that strips AI tells out of finished copy — run it first and the other skills just re-introduce them",
+          "It generates the first draft for the other skills to edit",
+          "It only works on images",
+          "Order doesn't matter"
+        ],
+        answer: 0,
+        explain: "human-voice-copy is the <b>final filter</b>. It makes already-written copy sound human, so it has to run last — otherwise the generation skills add the robotic tells right back."
+      },
+      {
+        type: "mcq",
+        tag: "Day 8 · AI Fluency",
+        prompt: "In one line, what is the AI Fluency framework about?",
+        options: [
+          "The history of neural networks",
+          "How to build your own large language model",
+          "Memorizing prompt templates",
+          "Collaborating with AI systems effectively, efficiently, ethically, and safely"
+        ],
+        answer: 3,
+        explain: "AI Fluency is Anthropic's framework for collaborating with AI <b>effectively, efficiently, ethically, and safely</b> — the mental model that keeps you from over-trusting or under-using it."
+      },
+      {
+        type: "mcq",
+        tag: "review",
+        prompt: "Review (Day 7): Which of these is a leading indicator (moves within 1–3 days)?",
+        options: ["Cost per call", "CTR / CPC / hook rate", "ROAS", "Close rate"],
+        answer: 1,
+        explain: "Leading (1–3 days): CPM, CTR, CPC, hook rate, scroll-stop. Lagging (7–30 days): CPL, cost per call, ROAS, close rate."
+      },
+      {
+        type: "mcq",
+        tag: "review",
+        prompt: "Review (Day 6): What's an “angle gap”?",
+        options: [
+          "A gap in your ad scheduling",
+          "A callout/hook/angle competitors aren't running that your client could own",
+          "The difference between two bid amounts",
+          "A missing pixel event"
+        ],
+        answer: 1,
+        explain: "An angle gap is an angle the market isn't running that your client can claim — the whole point of competitor research."
+      }
+    ]
+  },
+
+  9: {
+    title: "Day 9 — Client Launcher Walkthrough",
+    sub: "How a new client goes from signed contract to first launch. ~10 min.",
+    questions: [
+      {
+        type: "mcq",
+        tag: "Day 9 · The 6 stages",
+        prompt: "What are the six stages of the Client Launcher, in order?",
+        options: [
+          "Intake → Audit → Architecture → Brief generation → QA → Launch + handoff",
+          "Launch → Audit → Intake → QA → Brief → Architecture",
+          "Intake → Launch → QA → Audit → Brief → Architecture",
+          "Audit → Intake → Brief → Architecture → Launch → QA"
+        ],
+        answer: 0,
+        explain: "Intake → Audit → Architecture → Brief generation → QA → Launch + handoff. Each stage is Claude-assisted with a human in the loop."
+      },
+      {
+        type: "mcq",
+        tag: "Day 9 · Intake",
+        prompt: "Why is Intake the most important stage of the Client Launcher?",
+        options: [
+          "Because it's the longest stage",
+          "Garbage in, garbage out — every downstream stage (audit, architecture, briefs) is only as good as the intake",
+          "Because the client pays at that point",
+          "It isn't — QA is the most important"
+        ],
+        answer: 1,
+        explain: "Everything downstream is built from intake. Weak intake = weak audit, architecture, and briefs. Garbage in, garbage out."
+      },
+      {
+        type: "mcq",
+        tag: "Day 9 · Claude's role",
+        prompt: "What's Claude's role in the architecture stage?",
+        options: [
+          "It launches the campaigns live automatically",
+          "It proposes the first campaign structure, which the PMS then reviews",
+          "It replaces the PMS sign-off entirely",
+          "It has no role in architecture"
+        ],
+        answer: 1,
+        explain: "Claude proposes the first campaign structure; the <b>PMS reviews</b> it. AI drafts, humans approve — that pattern runs through every stage."
+      },
+      {
+        type: "mcq",
+        tag: "Day 9 · Pre-launch QA",
+        prompt: "Which of these belongs on the pre-launch QA checklist?",
+        options: [
+          "The client's lifetime revenue forecast",
+          "Tracking verified — every conversion event firing (pixel / Hyros)",
+          "A signed testimonial from the client",
+          "The editor's availability next month"
+        ],
+        answer: 1,
+        explain: "QA is a pre-launch gate: tracking verified, links correct, settings (optimization event/targeting/pixel/exclusions) right, everything turned on. Most “broken account” problems trace to a launch that skipped it."
+      },
+      {
+        type: "mcq",
+        tag: "Day 9 · What it is",
+        prompt: "The Client Launcher is best described as…",
+        options: [
+          "A Claude-powered system that takes a new client from signed contract to first campaign launch",
+          "A spreadsheet of client contacts",
+          "A Slack channel for onboarding chatter",
+          "The client's billing portal"
+        ],
+        answer: 0,
+        explain: "It's the system that gets AdClass from “signed contract” to “first launch” without dropping balls — consolidating intake, audits, architecture, briefs, and QA."
+      },
+      {
+        type: "mcq",
+        tag: "review",
+        prompt: "Review (Day 8): AdClass treats AI as…",
+        options: [
+          "A replacement for the media buyer",
+          "Leverage — more compounding work, less busywork",
+          "A tool only for the founders",
+          "Off-limits for client work"
+        ],
+        answer: 1,
+        explain: "Leverage, not replacement — it amplifies a PMA's output, it doesn't do the judgment for them."
+      },
+      {
+        type: "mcq",
+        tag: "review",
+        prompt: "Review (Day 7): A $13 CPM on a campaign meant to reach $150K+ earners is usually…",
+        options: [
+          "A warning — a low-quality placement/pocket whose cheap clicks won't convert",
+          "A win — scale it hard",
+          "Meaningless — CPM tells you nothing",
+          "Proof the pixel is broken"
+        ],
+        answer: 0,
+        explain: "Suspiciously low CPM on a high-value conversion campaign = you've drifted into cheap, low-quality traffic. Investigate it."
+      }
+    ]
+  },
+
+  12: {
+    title: "Day 12 — Media Buying II: Launching & Optimizing",
+    sub: "The daily operating system, kill criteria, and the 14-day rule. ~10 min.",
+    questions: [
+      {
+        type: "mcq",
+        tag: "Day 12 · The 14-day rule",
+        prompt: "You changed the optimization event 4 days ago and performance looks worse. Do you revert?",
+        options: [
+          "No — pixel changes take ~14 days to recalibrate; reverting at day 4 means you'll never know if it worked",
+          "Yes, revert immediately",
+          "Yes, and change three other things while you're at it",
+          "Double the budget to speed it up"
+        ],
+        answer: 0,
+        explain: "The <b>14-day rule</b>: Meta re-trains over ~14 days after any pixel/optimization/exclusion change. Panic-reverting at day 4 is how accounts stay broken for months."
+      },
+      {
+        type: "mcq",
+        tag: "Day 12 · Golden rule",
+        prompt: "To test a new creative or audience, what do you do — and what do you never do?",
+        options: [
+          "Edit the live ad set directly to save time",
+          "Duplicate the ad set (or launch a new one) — never drop the change into a live, working ad set",
+          "Delete the ad set and rebuild it from scratch",
+          "Pause the whole campaign first"
+        ],
+        answer: 1,
+        explain: "Golden rule: <b>never modify a live ad set</b>. Adding into it muddies data, steals delivery from what's working, and resets learning. Duplicate instead. (OK in place: budget/bid, pausing losers.)"
+      },
+      {
+        type: "mcq",
+        tag: "Day 12 · Kill criteria",
+        prompt: "When is it OK to cut an ad set BEFORE it hits 3× KPI spend?",
+        options: [
+          "Never — always wait for the full 3× KPI",
+          "When day-1 click cost is 2–3× your normal (or a diversity-play static has an absurd CPC)",
+          "When the ad has fewer than 100 likes",
+          "When the client asks you to"
+        ],
+        answer: 1,
+        explain: "Cut faster when leading indicators are obviously bad on day one (CPC 2–3× normal), or on diversity-play statics with absurd CPCs — you don't need conversion data to know it's a loser."
+      },
+      {
+        type: "mcq",
+        tag: "Day 12 · Daily OS",
+        prompt: "Which is part of the daily optimization pass?",
+        options: [
+          "Redesign the landing page every morning",
+          "Verify the VA's reported numbers against Hyros, run 7/14/30 comparisons, and check what's spending vs. converting",
+          "Rewrite all the ad copy daily",
+          "Launch a brand-new funnel each day"
+        ],
+        answer: 1,
+        explain: "The daily OS: verify the VA's numbers (then confirm in Hyros), 7/14/30 comparison, what's eating budget, what's converting, what's past kill criteria, what's net-new, and the leading-indicator picture."
+      },
+      {
+        type: "mcq",
+        tag: "Day 12 · Pacing",
+        prompt: "For a book-a-call client, you check the booking calendar every morning. Why?",
+        options: [
+          "To count the client's revenue",
+          "To pace spend to availability — don't pay to book an already-full calendar; scale when there are open slots",
+          "To schedule your own calls",
+          "It's not actually necessary"
+        ],
+        answer: 1,
+        explain: "Pace spend to the calendar: few open slots → ease off (don't pay to fill a booked calendar); lots of openings → room to scale. Rough math: open slots × cost-per-call = spend needed."
+      },
+      {
+        type: "mcq",
+        tag: "Day 12 · Scaling",
+        prompt: "When scaling a winner, what's the AdClass daily budget increase?",
+        options: [
+          "+20–40% per day",
+          "+200% per day",
+          "Double it every hour",
+          "+5% per week"
+        ],
+        answer: 0,
+        explain: "Scale winners <b>+20–40% per day</b> (and for info/high-ticket, scale in place — don't disturb a working ad set)."
+      },
+      {
+        type: "mcq",
+        tag: "review",
+        prompt: "Review (Day 7): An ad has a 2% CTR and gorgeous hook rate but zero sales. What do you do?",
+        options: [
+          "Scale it — sales are coming",
+          "Kill it — engagement isn't the right attention; the wrong people clicking is worse than no one",
+          "Keep it at low budget for social proof",
+          "Lower the budget and wait a month"
+        ],
+        answer: 1,
+        explain: "Vanity-metrics trap: great engagement + zero conversions = wrong audience clicking. Kill it."
+      },
+      {
+        type: "mcq",
+        tag: "review",
+        prompt: "Review (Day 2): For a book-a-call funnel, what's the default optimization event?",
+        options: ["Lead", "Schedule / booked call", "Purchase", "Landing page view"],
+        answer: 1,
+        explain: "Optimize for the furthest-along event you can get volume on — on a call funnel that's Schedule (the booking)."
+      }
+    ]
+  },
+
+  21: {
+    title: "Google Ads — Search Campaigns (Optional)",
+    sub: "Bonus, post-exam. High-intent search, bot prevention, Hyros tracking. ~10 min.",
+    optional: true,
+    questions: [
+      {
+        type: "mcq",
+        tag: "Google · Brand vs non-brand",
+        prompt: "What's the difference between brand and non-brand search — and which one scales?",
+        options: [
+          "Brand targets the client's own name (cheap, high-intent, low volume); non-brand targets general terms and is what scales",
+          "Non-brand targets the brand name; brand is what scales",
+          "They're the same thing",
+          "Brand search scales infinitely"
+        ],
+        answer: 0,
+        explain: "<b>Brand</b> = the client's own name/products — cheap, sky-high intent, but low volume (doesn't scale). <b>Non-brand</b> = general terms — scalable and broad, but needs tighter control to keep quality up."
+      },
+      {
+        type: "mcq",
+        tag: "Google · Setup",
+        prompt: "Which two networks do you turn OFF at setup, and why?",
+        options: [
+          "YouTube + Gmail — they cost too much",
+          "Search Partners + Display Network — the single biggest bot-traffic lever",
+          "Search + Shopping — they don't convert",
+          "None — leave everything on"
+        ],
+        answer: 1,
+        explain: "Turn OFF <b>Search Partners + Display Network</b> at setup — it's the single biggest lever against bot traffic. Confirm it stuck after launch."
+      },
+      {
+        type: "mcq",
+        tag: "Google · Keywords",
+        prompt: "What's the default keyword match type at AdClass?",
+        options: ["Exact match", "Broad match", "Phrase match", "Negative match"],
+        answer: 2,
+        explain: "Default to <b>Phrase match</b>. Exact is too narrow early; Broad is for testing only. Research keywords with Claude (feed it the offer) and/or Google Keyword Planner."
+      },
+      {
+        type: "mcq",
+        tag: "Google · Bot prevention",
+        prompt: "Which of these is a real lever for fighting bot traffic on Google?",
+        options: [
+          "Raise the daily budget",
+          "Switch to Performance Max",
+          "Turn on the Display Network",
+          "Deselect “Unknown” for age/gender/income, exclude non-US countries, and keep Search Partners + Display off"
+        ],
+        answer: 3,
+        explain: "Bot prevention is the whole game on Google: deselect “Unknown” demographics, bulk-exclude non-US countries (Nigeria/India/China are common culprits), and keep Search Partners + Display off."
+      },
+      {
+        type: "mcq",
+        tag: "Google · Lead quality",
+        prompt: "How can a Search campaign optimize for lead quality, not just lead volume?",
+        options: [
+          "Add a Purchase conversion fired via Hyros CAPI, so Google chases higher-quality leads while still optimizing the easy event",
+          "Just raise the daily budget",
+          "Switch all keywords to Broad match",
+          "Turn on Performance Max"
+        ],
+        answer: 0,
+        explain: "Use a campaign-specific conversion goal and <b>also add Purchase via Hyros CAPI</b> — Google then chases higher-quality leads while still optimizing the easy event (Lead/Call)."
+      },
+      {
+        type: "mcq",
+        tag: "Google · Campaign types",
+        prompt: "Why doesn't AdClass use Performance Max?",
+        options: [
+          "It's too expensive to enable",
+          "Google's AI decides everything — cheap leads sometimes, but near-impossible to optimize",
+          "It only works for Meta",
+          "It's banned for agencies"
+        ],
+        answer: 1,
+        explain: "Performance Max hands all control to Google's AI — occasionally cheap leads, but you can't steer it. AdClass also disables Display (bot magnet) and ignores Shopping (e-com only)."
+      },
+      {
+        type: "mcq",
+        tag: "review",
+        prompt: "Review (Day 2): For a book-a-call funnel, what's the default optimization event?",
+        options: ["Lead", "Schedule / booked call", "Purchase", "Landing page view"],
+        answer: 1,
+        explain: "Optimize for the furthest-along event you can get volume on — on a call funnel that's Schedule. (Same logic applies when you set Google's conversion goal.)"
+      }
+    ]
   }
-  // 8: { title: "Day 8 — AI Foundations", sub: "...", questions: [ ... ] },
-  // ...add the rest here as we roll out
+  // add more days here as needed
 };
 
 /* =====================================================================
@@ -947,8 +1332,10 @@ function fetchProgress(done){
 }
 
 /* ---------- dashboard ---------- */
+function seqKeys(){ return dayKeys().filter(function(d){ return !(QUIZZES[d] && QUIZZES[d].optional); }); }
 function isUnlocked(day){
-  const ks=dayKeys(), i=ks.indexOf(day);
+  if(QUIZZES[day] && QUIZZES[day].optional) return true; // optional days are always open
+  const ks=seqKeys(), i=ks.indexOf(day);
   if(i<=0) return true;
   const prev=PROGRESS[ks[i-1]];
   return !!(prev && prev.passed);
@@ -969,23 +1356,24 @@ function renderPod(){
 }
 function renderDays(){
   const ks=dayKeys(); const wrap=$("#days"); wrap.innerHTML="";
-  let passed=0, next=null;
+  let next=null;
   ks.forEach(day=>{
-    const q=QUIZZES[day], prog=PROGRESS[day], unlocked=isUnlocked(day), isPass=prog&&prog.passed;
-    if(isPass) passed++;
-    if(next===null && unlocked && !isPass) next=day;
+    const q=QUIZZES[day], prog=PROGRESS[day], unlocked=isUnlocked(day), isPass=prog&&prog.passed, opt=!!q.optional;
+    if(next===null && unlocked && !isPass && !opt) next=day;
     const el=document.createElement(unlocked?"button":"div");
     el.className="day"+(unlocked?"":" locked")+(isPass?" passed":"");
     const status = isPass ? '<span class="pill passed">✓ '+prog.percent+'%</span>'
-      : unlocked ? (prog ? '<span class="pill retry">Retry · '+prog.percent+'%</span>' : '<span class="pill start">Start →</span>')
-      : '<span class="pill locked">🔒 Locked</span>';
-    el.innerHTML='<span class="dnum">'+(isPass?'✓':day)+'</span>'+
+      : !unlocked ? '<span class="pill locked">🔒 Locked</span>'
+      : opt ? '<span class="pill start">Optional →</span>'
+      : (prog ? '<span class="pill retry">Retry · '+prog.percent+'%</span>' : '<span class="pill start">Start →</span>');
+    el.innerHTML='<span class="dnum">'+(isPass?'✓':(opt?'★':day))+'</span>'+
       '<span class="dmain"><span class="dt">'+q.title+'</span><span class="dd">'+q.sub+'</span></span>'+status;
     if(unlocked) el.onclick=()=>openDay(day);
     wrap.appendChild(el);
   });
-  $("#stat-passed").textContent=passed;
-  $("#stat-total").textContent=ks.length;
+  var req=seqKeys();
+  $("#stat-passed").textContent=req.filter(function(d){return PROGRESS[d]&&PROGRESS[d].passed;}).length;
+  $("#stat-total").textContent=req.length;
   $("#stat-next").textContent = next!==null ? ("Day "+next) : "Done 🎉";
 }
 
@@ -998,7 +1386,7 @@ function openDay(day){
   renderQuiz(day);
 }
 function showLocked(day){
-  const ks=dayKeys(), i=ks.indexOf(day), prev=ks[i-1];
+  const ks=seqKeys(), i=ks.indexOf(day), prev=ks[i-1];
   $("#locked-msg").innerHTML = "<b>"+QUIZZES[day].title+"</b> is locked. Pass <b>Day "+prev+"</b> (80%+) to unlock it.";
   show("locked");
 }
