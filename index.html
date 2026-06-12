@@ -6,72 +6,79 @@
 <title>AdClass PMA Pop Quiz</title>
 <style>
   :root{
-    --green:#1f9d6b; --green-d:#16805a; --green-l:#e8f6f0;
-    --ink:#15241f; --muted:#5f7068; --line:#e2e8e4;
-    --bg:#f5f8f6; --card:#ffffff; --bad:#d2453f; --bad-l:#fdecec;
-    --good:#1f9d6b; --good-l:#e8f6f0; --shadow:0 1px 3px rgba(20,36,31,.08),0 8px 24px rgba(20,36,31,.06);
+    --bg:#0a0d0c; --card:#14181a; --card-2:#1b2124; --ink:#eaf1ee; --muted:#8b9a93;
+    --line:#272f31; --line-2:#323b3e;
+    --green:#1fd47e; --green-d:#15b869; --green-l:rgba(31,212,126,.14);
+    --good:#1fd47e; --good-l:rgba(31,212,126,.16);
+    --bad:#ff5d54; --bad-l:rgba(255,93,84,.14);
+    --amber:#f0c25e; --amber-l:rgba(240,194,94,.16);
+    --shadow:0 1px 2px rgba(0,0,0,.5),0 14px 40px rgba(0,0,0,.40);
   }
   *{box-sizing:border-box}
   body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     background:var(--bg);color:var(--ink);line-height:1.5;-webkit-font-smoothing:antialiased}
-  .wrap{max-width:720px;margin:0 auto;padding:24px 18px 80px}
-  .brand{display:flex;align-items:center;gap:10px;margin-bottom:18px}
-  .brand .dot{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--green),#2bbf88);
-    display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:16px}
-  .brand b{font-size:15px;letter-spacing:.2px}
-  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px;box-shadow:var(--shadow)}
-  h1{font-size:22px;margin:0 0 4px}
-  .sub{color:var(--muted);font-size:14px;margin:0 0 20px}
+  .wrap{max-width:720px;margin:0 auto;padding:26px 18px 80px}
+  .brand{display:flex;align-items:center;gap:13px;margin-bottom:20px}
+  .brand img{height:26px;width:auto;display:block}
+  .brand .sep{width:1px;height:20px;background:var(--line-2)}
+  .brand b{font-size:13px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--muted)}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px;box-shadow:var(--shadow)}
+  h1{font-size:22px;margin:0 0 4px;letter-spacing:-.2px}
+  .sub{color:var(--muted);font-size:14px;margin:0 0 22px}
   label{display:block;font-weight:600;font-size:13px;margin:14px 0 6px}
-  input[type=text],select{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:10px;
-    font-size:15px;background:#fff;color:var(--ink)}
+  input[type=text],select{width:100%;padding:12px 13px;border:1px solid var(--line-2);border-radius:10px;
+    font-size:15px;background:#0e1413;color:var(--ink);appearance:none}
+  select{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%238b9a93' stroke-width='2.5'><path d='M6 9l6 6 6-6'/></svg>");
+    background-repeat:no-repeat;background-position:right 13px center;padding-right:38px}
+  input::placeholder{color:#5b6a63}
   input:focus,select:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 3px var(--green-l)}
-  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--green);color:#fff;
-    border:none;border-radius:11px;padding:13px 22px;font-size:15px;font-weight:700;cursor:pointer;transition:.15s}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--green);color:#04150d;
+    border:none;border-radius:11px;padding:13px 24px;font-size:15px;font-weight:800;cursor:pointer;transition:.15s}
   .btn:hover{background:var(--green-d)}
-  .btn:disabled{opacity:.5;cursor:not-allowed}
-  .btn.secondary{background:#fff;color:var(--green-d);border:1px solid var(--green)}
+  .btn:disabled{opacity:.45;cursor:not-allowed}
+  .btn.secondary{background:transparent;color:var(--green);border:1px solid var(--green)}
   .btn.secondary:hover{background:var(--green-l)}
-  .meta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px}
-  .meta-row > div{flex:1;min-width:220px}
-  .progress{height:6px;background:var(--line);border-radius:99px;overflow:hidden;margin:0 0 22px}
+  .progress{height:6px;background:var(--line);border-radius:99px;overflow:hidden;margin:0 0 24px}
   .progress > span{display:block;height:100%;background:var(--green);width:0;transition:width .3s}
-  .q{margin-bottom:22px;padding-bottom:6px}
-  .q .tag{display:inline-block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;
-    color:var(--green-d);background:var(--green-l);padding:3px 9px;border-radius:99px;margin-bottom:9px}
-  .q .tag.review{color:#8a5a00;background:#fdf2dd}
-  .q .prompt{font-weight:600;font-size:16px;margin-bottom:12px}
+  .q{margin-bottom:24px}
+  .q .tag{display:inline-block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;
+    color:var(--green);background:var(--green-l);padding:3px 9px;border-radius:99px;margin-bottom:10px}
+  .q .tag.review{color:var(--amber);background:var(--amber-l)}
+  .q .prompt{font-weight:600;font-size:16px;margin-bottom:13px;color:var(--ink)}
   .q .prompt .num{color:var(--muted);font-weight:700;margin-right:6px}
-  .opt{display:flex;align-items:flex-start;gap:10px;border:1px solid var(--line);border-radius:11px;
-    padding:11px 13px;margin-bottom:8px;cursor:pointer;transition:.12s;background:#fff}
+  .opt{display:flex;align-items:flex-start;gap:11px;border:1px solid var(--line-2);border-radius:11px;
+    padding:12px 14px;margin-bottom:9px;cursor:pointer;transition:.12s;background:var(--card-2)}
   .opt:hover{border-color:var(--green);background:var(--green-l)}
   .opt input{margin-top:3px;accent-color:var(--green)}
-  .opt.locked{cursor:default}
-  .opt.locked:hover{border-color:var(--line);background:#fff}
-  .opt.correct{border-color:var(--good);background:var(--good-l)}
-  .opt.wrong{border-color:var(--bad);background:var(--bad-l)}
-  .opt .mark{margin-left:auto;font-weight:800}
+  .opt.locked,.opt.locked:hover{cursor:default}
+  .opt.locked:hover{border-color:var(--line-2);background:var(--card-2)}
+  .opt.correct,.opt.correct:hover{border-color:var(--good);background:var(--good-l)}
+  .opt.wrong,.opt.wrong:hover{border-color:var(--bad);background:var(--bad-l)}
+  .opt .mark{margin-left:auto;font-weight:800;white-space:nowrap}
   .opt.correct .mark{color:var(--good)}
   .opt.wrong .mark{color:var(--bad)}
-  .explain{font-size:13.5px;color:var(--muted);background:#f7faf8;border-left:3px solid var(--green);
-    padding:9px 12px;border-radius:0 8px 8px 0;margin-top:10px;display:none}
+  .explain{font-size:13.5px;color:var(--muted);background:rgba(255,255,255,.035);border-left:3px solid var(--green);
+    padding:10px 13px;border-radius:0 8px 8px 0;margin-top:11px;display:none}
   .explain.show{display:block}
   .explain b{color:var(--ink)}
-  .scorebox{text-align:center;padding:10px 0 22px}
-  .scorebox .pct{font-size:46px;font-weight:800;line-height:1}
+  .scorebox{text-align:center;padding:10px 0 24px}
+  .scorebox .pct{font-size:48px;font-weight:800;line-height:1;color:var(--ink)}
   .scorebox .frac{color:var(--muted);font-size:15px;margin-top:6px}
-  .scorebox .verdict{display:inline-block;margin-top:12px;font-weight:700;font-size:13px;padding:5px 14px;border-radius:99px}
+  .scorebox .verdict{display:inline-block;margin-top:13px;font-weight:700;font-size:13px;padding:6px 15px;border-radius:99px}
   .verdict.pass{color:var(--good);background:var(--good-l)}
   .verdict.fail{color:var(--bad);background:var(--bad-l)}
   .note{font-size:12.5px;color:var(--muted);margin-top:18px;text-align:center}
   .hidden{display:none}
-  .footer{text-align:center;color:var(--muted);font-size:12px;margin-top:26px}
+  .footer{text-align:center;color:#5b6a63;font-size:12px;margin-top:28px;letter-spacing:.3px}
   fieldset{border:none;padding:0;margin:0}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <div class="brand"><span class="dot">A</span><b>AdClass · PMA Training</b></div>
+  <div class="brand">
+    <img src="https://cdn.prod.website-files.com/66f14b1b3b8fb5433979a3f2/672c4376d6b1971f4c8d1b1e_adclass-logo.webp" alt="AdClass" />
+    <span class="sep"></span><b>PMA Training</b>
+  </div>
 
   <!-- ============ START SCREEN ============ -->
   <div class="card" id="screen-start">
@@ -85,7 +92,7 @@
         <option value="">Select your pod leader…</option>
       </select>
     </fieldset>
-    <div style="margin-top:22px"><button class="btn" id="begin">Start quiz →</button></div>
+    <div style="margin-top:24px"><button class="btn" id="begin">Start quiz →</button></div>
   </div>
 
   <!-- ============ QUIZ SCREEN ============ -->
@@ -114,7 +121,7 @@
     <p class="note" id="r-saved"></p>
   </div>
 
-  <div class="footer">AdClass PMA Training · Pop Quiz</div>
+  <div class="footer">AdClass · PMA Training · Pop Quiz</div>
 </div>
 
 <script>
@@ -142,7 +149,7 @@ const CONFIG = {
    QUESTION BANK  — keyed by day number. Add days here as you build them.
    type: "mcq"  -> options[], answer = index of correct option
    type: "fill" -> accept = [array of acceptable answers, case-insensitive]
-   tag: short label. Use "review" flag for spaced-repetition items.
+   tag: short label. Use tag:"review" for spaced-repetition items.
    ===================================================================== */
 const QUIZZES = {
   2: {
@@ -262,7 +269,6 @@ const quiz = QUIZZES[DAY];
 let state = { trainee:"", leader:null };
 
 function init(){
-  // populate pod leaders
   const sel = $("#leader");
   CONFIG.podLeaders.forEach((p,i)=>{
     const o=document.createElement("option"); o.value=String(i); o.textContent=p.name; sel.appendChild(o);
@@ -354,7 +360,6 @@ function grade(){
     const wrap=document.querySelector('.q[data-qi="'+qi+'"]');
     const ok=isCorrect(qi); if(ok) correct++;
     const given=getAnswer(qi);
-    // lock + color
     if(q.type==="mcq"){
       wrap.querySelectorAll(".opt").forEach((lab,oi)=>{
         lab.classList.add("locked");
@@ -387,7 +392,6 @@ function grade(){
   v.className="verdict "+(pass?"pass":"fail");
   v.textContent=pass?"Strong pass":"Below the bar — review the misses";
 
-  // clone graded questions into results list
   const list=$("#r-list"); list.innerHTML="";
   list.appendChild($("#quiz-form").cloneNode(true));
 
@@ -417,7 +421,6 @@ function record(payload){
     return;
   }
   saved.textContent="Sending your result to your pod leader…";
-  // text/plain avoids a CORS preflight; we don't need to read the response.
   fetch(CONFIG.endpoint,{method:"POST",body:JSON.stringify(payload)})
     .then(()=>{ saved.textContent="✓ Result sent to "+payload.podLeader+" and logged."; })
     .catch(()=>{ saved.textContent="⚠ Couldn't send your result automatically. Screenshot this page and send it to your pod leader."; });
