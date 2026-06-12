@@ -350,12 +350,26 @@ const QUIZZES = {
 
   3: {
     title: "Day 3 — Ad Auditing",
-    sub: "Diagnosing why an account is stuck — before you touch anything. ~10 min.",
+    sub: "Diagnosing why an account is stuck — before you touch anything. ~12 min.",
     questions: [
+      {
+        type: "multi",
+        tag: "Day 3 · Stuck-account patterns",
+        prompt: "Select the three patterns of accounts that stop scaling.",
+        options: [
+          "The ceiling account",
+          "The slow-rot account",
+          "The over-reliant account",
+          "The saturation account",
+          "The runaway account"
+        ],
+        answer: [0, 1, 2],
+        explain: "The three: <b>ceiling</b> (stuck ~$4–5K/day, falls apart when pushed), <b>slow-rot</b> (surface metrics fine, lead quality declining for months), <b>over-reliant</b> (one ad/funnel/style carrying everything). “Saturation” and “runaway” aren't AdClass terms."
+      },
       {
         type: "mcq",
         tag: "Day 3 · Stuck-account patterns",
-        prompt: "An account's surface numbers look fine — CTR is steady, cost per lead is flat — but the sales team has been complaining for months that lead quality is sliding. Which 'stuck account' pattern is this?",
+        prompt: "An account's surface numbers look fine — CTR is steady, cost per lead is flat — but the sales team has complained for months that lead quality is sliding. Which pattern is this?",
         options: [
           "The ceiling account",
           "The slow-rot account",
@@ -363,15 +377,40 @@ const QUIZZES = {
           "The saturation account"
         ],
         answer: 1,
-        explain: "<b>The slow-rot account</b>: surface metrics look healthy while lead quality quietly degrades for months. (The <b>ceiling</b> account stalls around $4–5K/day; the <b>over-reliant</b> account leans on one ad/funnel/style.) Slow rot usually traces back to a data/pixel-quality problem, not creative."
+        explain: "<b>The slow-rot account</b>: surface metrics look healthy while lead quality quietly degrades. It usually traces back to a data/pixel-quality problem, not creative — which is why the audit checks pixel health, not just the ads."
+      },
+      {
+        type: "mcq",
+        tag: "Day 3 · Diagnostic ladder",
+        prompt: "An account is stuck at ~$4K/day and has tested only 6 creative angles in the last 30 days. Which play does it need first?",
+        options: [
+          "Play 2: a better funnel for cold traffic",
+          "Play 1: more, better ads (creative diversity)",
+          "Play 3: add a new platform",
+          "Raise the daily budget and push through the ceiling"
+        ],
+        answer: 1,
+        explain: "The ladder is strict-order. Play 1 asks: have you tested <b>10+</b> angles in 30 days? Six isn't enough — so it's <b>Play 1, more/better ads</b>, before touching the funnel or adding a platform."
+      },
+      {
+        type: "fill",
+        tag: "Day 3 · Kill criteria",
+        prompt: "Fill in the blank: kill criteria says spend ___× your KPI on an ad set before deciding it's a loser. (a number)",
+        accept: ["3", "3x", "x3", "three", "3 times", "3×", "thrice", "3 x"],
+        explain: "<b>3× your KPI.</b> If cost-per-call is $300, let the ad set spend ~$900 before judging. (Cut faster only if leading indicators — like click cost 2–3× normal — are badly off on day one.)"
       },
       {
         type: "mcq",
         tag: "Day 3 · Kill criteria",
-        prompt: "Your target cost per call is $300. Per AdClass kill criteria, roughly how much should an ad set be allowed to spend before you decide it's a loser?",
-        options: ["$300", "$600", "$900", "$1,500"],
-        answer: 2,
-        explain: "The rule is <b>spend 3× your KPI</b> before deciding. At a $300 cost-per-call target, let the ad set spend ~<b>$900</b> first — enough data to judge with confidence. (You can cut faster if click cost is 2–3× normal on day one.)"
+        prompt: "Your cost-per-call target is $300. An ad set has spent $620 with zero calls and normal-looking click costs. Per kill criteria, what do you do?",
+        options: [
+          "Keep going — it hasn't reached 3× KPI (~$900) yet",
+          "Cut it now — $620 with no calls is already a loser",
+          "Cut it — any ad set with zero calls should be killed immediately",
+          "Double its budget to force a conversion"
+        ],
+        answer: 0,
+        explain: "3× KPI on a $300 target is ~$900. At $620 with normal click costs you don't have enough data yet — keep going. You'd only cut earlier if a leading indicator (e.g. click cost 2–3× normal) was screaming on day one."
       },
       {
         type: "mcq",
@@ -400,17 +439,18 @@ const QUIZZES = {
         explain: "The <b>vanity-metrics trap</b>: engagement shows the ad got attention, not the <i>right</i> attention. The wrong people clicking burns budget and feeds Meta bad signal about who to find. Great surface metrics + zero conversions = kill it."
       },
       {
-        type: "mcq",
+        type: "multi",
         tag: "Day 3 · Starved pixel",
-        prompt: "You're auditing an account optimized for 'Submit Application,' but Events Manager shows only 1–3 of those events in the last 7 days. What's the FIRST fix?",
+        prompt: "Select all the signs that point to a STARVED pixel (rather than a creative problem).",
         options: [
-          "Launch 20 fresh creatives to jump-start conversions",
-          "Audit that the optimization event is actually firing reliably (CAPI / automation) before changing anything else",
-          "Raise the budget to force more conversions through",
-          "Switch to a brand-new CAPI source that same day"
+          "Only 1–3 of your optimization event show in Events Manager over the last 7 days",
+          "Link CTR is steady or improving, but the qualified-lead % is sliding",
+          "The sales team says the leads are getting worse",
+          "CPM is suddenly 3× higher than your normal",
+          "The ad has lots of likes and shares"
         ],
-        answer: 1,
-        explain: "That volume means a <b>starved pixel</b>. First, <b>confirm the event is firing reliably</b> (CAPI, GTM, GHL automation) — don't touch creative or budget yet. If it's firing fine but volume is still low, then move one step up the funnel to a higher-volume qualified event."
+        answer: [0, 1, 2],
+        explain: "A starved pixel = too few optimization events for Meta to learn from, so it optimizes for who'll <i>engage</i>, not who'll <i>convert</i> (clicks fine, quality rotting). First fix: confirm the event is actually firing (CAPI/automation) — don't change creative or budget yet."
       },
       {
         type: "mcq",
@@ -1044,6 +1084,125 @@ const QUIZZES = {
         ],
         answer: 1,
         explain: "Leverage, not replacement — it amplifies a PMA's output, it doesn't do the judgment for them."
+      },
+      {
+        type: "mcq",
+        tag: "review",
+        prompt: "Review (Day 7): A $13 CPM on a campaign meant to reach $150K+ earners is usually…",
+        options: [
+          "A warning — a low-quality placement/pocket whose cheap clicks won't convert",
+          "A win — scale it hard",
+          "Meaningless — CPM tells you nothing",
+          "Proof the pixel is broken"
+        ],
+        answer: 0,
+        explain: "Suspiciously low CPM on a high-value conversion campaign = you've drifted into cheap, low-quality traffic. Investigate it."
+      }
+    ]
+  },
+
+  11: {
+    title: "Day 11 — Media Buying I: Meta Campaign Structure",
+    sub: "Putting the three pillars into a campaign: ABO/CBO, audiences, events. ~12 min.",
+    questions: [
+      {
+        type: "mcq",
+        tag: "Day 11 · ABO vs CBO",
+        prompt: "What's the actual difference between ABO and CBO?",
+        options: [
+          "ABO controls budget at the ad-set level; CBO lets Meta allocate budget across ad sets — same auction, same algorithm",
+          "ABO uses a different, cheaper auction than CBO",
+          "CBO turns off the learning phase",
+          "ABO is for Google; CBO is for Meta"
+        ],
+        answer: 0,
+        explain: "It's just organization — <b>same auction, same algorithm</b>. ABO = you control budget per ad set (good for testing and info/high-ticket pacing); CBO = Meta allocates across proven concepts (good for scaling, especially e-com/low-ticket)."
+      },
+      {
+        type: "mcq",
+        tag: "Day 11 · ABO vs CBO",
+        prompt: "An e-commerce client with high purchase volume — ABO or CBO for scaling winners?",
+        options: [
+          "ABO — always control budget manually",
+          "CBO — post-ID winners into a CBO works well for e-com/low-ticket with high conversion volume",
+          "Neither — only use Advantage+ Shopping",
+          "It doesn't matter"
+        ],
+        answer: 1,
+        explain: "<b>CBO.</b> With high conversion volume (e-com/low-ticket), post-ID winners into a CBO lets Meta allocate budget across proven concepts and preserves social proof. ABO stays the default for low-volume info/high-ticket where you want manual pacing."
+      },
+      {
+        type: "mcq",
+        tag: "Day 11 · Optimization events",
+        prompt: "On a call funnel you'd normally optimize for Schedule. When would you optimize for Lead instead?",
+        options: [
+          "When you're deliberately running a top-of-funnel list-building play (or Schedule volume is too low to optimize on)",
+          "Never — always optimize for Schedule",
+          "Whenever the client says they want more leads",
+          "Whenever CPM looks low"
+        ],
+        answer: 0,
+        explain: "Default is the furthest-along event you can get volume on (Schedule). Drop to Lead when you're intentionally building a TOF list — or step up the funnel temporarily when the Schedule event is too starved for Meta to optimize on."
+      },
+      {
+        type: "mcq",
+        tag: "Day 11 · Page incongruence",
+        prompt: "Your client's page posts about fitness, but the offer is a business-coaching program — Advantage+ keeps hammering the warm fitness audience. What's the fix?",
+        options: [
+          "Raise the budget on the main campaign",
+          "Switch the campaign to exact-match keywords",
+          "Run a dedicated low-budget cold-prospecting ad set, excluding page engagers, ad engagers, video viewers, and website visitors",
+          "Delete the Facebook page"
+        ],
+        answer: 2,
+        explain: "That's <b>page incongruence</b>: the page's signals don't match the offer, so Advantage+ pulls the wrong warm audience. Fix with a low-budget ($100–200/day) cold-prospecting ad set excluding warm engagers for ~180 days (the Local Legend example)."
+      },
+      {
+        type: "mcq",
+        tag: "Day 11 · Exclusions",
+        prompt: "Why exclude past purchasers and booked calls even when you're on Advantage+ broad?",
+        options: [
+          "Because past purchasers cost more to reach",
+          "Exclusions are guardrails — they stop Meta recycling your existing pipeline instead of finding new people",
+          "Because Meta requires the exclusion",
+          "Because it lowers your CPM"
+        ],
+        answer: 1,
+        explain: "Exclusions aren't targeting inputs — they're <b>guardrails</b>. They keep Advantage+ from re-serving people already in your pipeline so your prospecting budget actually finds new audiences."
+      },
+      {
+        type: "multi",
+        tag: "Day 11 · Audience philosophy",
+        prompt: "Select all that match AdClass's default audience approach.",
+        options: [
+          "Advantage+ broad is the default",
+          "Interests and lookalikes work as seed audiences layered in, not hard constraints",
+          "Exclude past purchasers / booked calls to keep prospecting cold",
+          "Always build tight interest stacks as hard targeting",
+          "Never use exclusions of any kind"
+        ],
+        answer: [0, 1, 2],
+        explain: "Advantage+ broad is the default; interests/lookalikes are <i>seeds</i> layered in (not hard constraints); exclusions are guardrails. Tight hard-interest stacks and “never exclude” are both the old playbook."
+      },
+      {
+        type: "fill",
+        tag: "Day 11 · Optimization events",
+        prompt: "Fill in the blank: optimize for the furthest-along event you can get roughly ___ conversions on in 14 days (the rough volume benchmark). (a number)",
+        accept: ["50", "fifty", "50 conversions", "~50", "50 events"],
+        explain: "Rough benchmark: ~<b>50 events in 14 days</b> for Meta to optimize confidently. It's less rigid now (focus on the trend), but below it the pixel starves and costs climb."
+      },
+      {
+        type: "mcq",
+        tag: "review",
+        prompt: "Review (Day 5): You test a new hook, a new image, AND new targeting in one ad set and a winner emerges. What did you learn?",
+        options: [
+          "Nothing reliable — you changed multiple variables, so you can't attribute the result",
+          "That the new image caused the win",
+          "That the new targeting caused the win",
+          "Everything — it was a perfect test"
+        ],
+        answer: 0,
+        explain: "A valid test isolates one variable. “If you're testing everything, you're testing nothing.”"
       },
       {
         type: "mcq",
