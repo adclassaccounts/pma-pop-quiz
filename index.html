@@ -1422,7 +1422,7 @@ const QUIZZES = {
 
   20: {
     title: "Day 20 — End-of-Month Examination (Part 1: Written)",
-    sub: "Cumulative, closed-book. 22 questions across the month. You need 85% to pass. (Parts 2 & 3 — the live audit + verbal walkthrough — are done with your pod leader.)",
+    sub: "Cumulative, closed-book. 37 questions, ~35–40 min. You need 85% to pass. (Parts 2 & 3 — the live audit + verbal walkthrough — are done with your pod leader.)",
     passMark: 0.85,
     questions: [
       {
@@ -1663,6 +1663,191 @@ const QUIZZES = {
         ],
         answer: 0,
         explain: "Obvious day-one losers (CPC 2–3× normal) get cut early; the 3× rule is for ambiguous cases."
+      },
+      {
+        type: "mcq",
+        tag: "Exam · Pillars applied",
+        prompt: "You run five text-image ads where the only thing that changes is the callout persona (\"Are you a home-service owner?\", \"…a fractional CFO?\"). Which pillar/play is that?",
+        options: [
+          "Pillar 3 — scaling winners",
+          "Pillar 1 — creative diversity (the callout strategy lives here)",
+          "It's not a valid test",
+          "Audience targeting"
+        ],
+        answer: 1,
+        explain: "Callouts are the fastest version of Pillar 1 — same offer/funnel, the callout is the only variable, finding new pockets."
+      },
+      {
+        type: "mcq",
+        tag: "Exam · Callouts",
+        prompt: "When writing a headline, which approach attracts better-converting buyers?",
+        options: [
+          "Call out the identity you want in the buyer (\"Dallas executives\")",
+          "Call out the guarantee to defuse objections (\"or you don't pay\")",
+          "Whatever wording gets the most clicks",
+          "Always lead with the lowest price"
+        ],
+        answer: 0,
+        explain: "Identity callouts attract people already half-sold it's for them; guarantee/objection headlines attract skeptics who convert poorly."
+      },
+      {
+        type: "mcq",
+        tag: "Exam · Audience philosophy",
+        prompt: "A \"cold\" Advantage+ broad campaign is showing 3–5x frequency over 30 days. Do you panic?",
+        options: [
+          "No — Advantage+ does baked-in retargeting, so high frequency is normal; don't panic",
+          "Yes — pause it immediately",
+          "Yes — exclude all audiences right away",
+          "Switch to tight manual interest stacks"
+        ],
+        answer: 0,
+        explain: "Advantage+ bakes in retargeting, which drives 3–5x frequency even on \"cold\" campaigns. It's expected now."
+      },
+      {
+        type: "mcq",
+        tag: "Exam · Page incongruence",
+        prompt: "A client's page posts about fitness but the offer is business coaching, and Advantage+ keeps hammering the warm fitness audience. The fix?",
+        options: [
+          "Raise the budget on the main campaign",
+          "Switch the campaign to exact-match keywords",
+          "Run a low-budget cold-prospecting ad set excluding page engagers, ad engagers, video viewers, and site visitors",
+          "Delete the Facebook page"
+        ],
+        answer: 2,
+        explain: "Page incongruence — exclude the warm engagers in a dedicated low-budget cold-prospecting ad set so Advantage+ finds new people (the Local Legend fix)."
+      },
+      {
+        type: "mcq",
+        tag: "Exam · Funnel types",
+        prompt: "Default funnel type for a high-ticket ($1K–$15K), call-based info offer?",
+        options: ["Low-ticket funnel", "VSL funnel", "Lead-magnet funnel", "Webinar funnel"],
+        answer: 1,
+        explain: "VSL funnel: ad → (opt-in) → VSL → survey/application → book-a-call → sales call."
+      },
+      {
+        type: "mcq",
+        tag: "Exam · Funnel types",
+        prompt: "In a lead-magnet funnel, how do the leads typically get converted?",
+        options: [
+          "Purchase happens in-funnel at checkout",
+          "They're sent straight to a webinar to buy",
+          "An outbound call from reps, supported by email nurture",
+          "A retargeting ad closes them automatically"
+        ],
+        answer: 2,
+        explain: "The \"call\" in a lead-magnet funnel usually becomes outbound — reps call the leads, backed by nurture."
+      },
+      {
+        type: "mcq",
+        tag: "Exam · Awareness stages",
+        prompt: "Which headline targets a PROBLEM-aware prospect (knows the problem, not that solutions exist)?",
+        options: [
+          "\"See why agents are switching from [Competitor] to our system\"",
+          "\"The real reason your listings keep going stale (and it's not your photos)\"",
+          "\"You've watched the demo — 20% off this week only\"",
+          "\"Book your strategy call — only 3 slots left\""
+        ],
+        answer: 1,
+        explain: "Problem-aware headlines agitate the problem/curiosity without naming a solution. The others are solution-aware or most-aware."
+      },
+      {
+        type: "multi",
+        tag: "Exam · Funnel audit",
+        prompt: "When you've found the weakest step in a funnel, which are the three levers you can pull (one at a time)?",
+        options: ["Messaging (headline/copy)", "Design (layout, colors, fonts)", "Page structure (testimonials, step order, opt-in placement)", "Bid strategy", "Audience size"],
+        answer: [0, 1, 2],
+        explain: "Messaging, design, and page structure — test one at a time. Fixing one weak step can halve cost-per-call without touching the ads."
+      },
+      {
+        type: "mcq",
+        tag: "Exam · Reading data",
+        prompt: "Your 7-day numbers look great but the 30-day is flat. What do you do?",
+        options: [
+          "You don't have a decision yet — investigate; recent vs. baseline disagree, especially on long high-ticket cycles",
+          "Cut everything immediately",
+          "Scale hard on the strength of the 7-day",
+          "Ignore the 30-day entirely"
+        ],
+        answer: 0,
+        explain: "When the windows disagree you have a question, not a decision — high-ticket sales cycles are longer than you think."
+      },
+      {
+        type: "mcq",
+        tag: "Exam · Optimization events",
+        prompt: "Your Schedule event is too low-volume for Meta to optimize on. Best move?",
+        options: [
+          "Step one event up the funnel (optimize a higher-volume qualified event) or run parallel optimization",
+          "Just raise the budget and wait",
+          "Switch all the creative",
+          "Do nothing — volume doesn't matter"
+        ],
+        answer: 0,
+        explain: "Move one step up the funnel to a higher-volume but still-qualified event, or run parallel optimization events to feed the pixel."
+      },
+      {
+        type: "multi",
+        tag: "Exam · Kill criteria",
+        prompt: "Select the conditions under which you'd cut an ad set BEFORE it reaches 3× KPI spend.",
+        options: [
+          "Day-1 click cost is 2–3× your normal",
+          "A diversity-play static has an absurd CPC",
+          "The ad has fewer than 100 likes",
+          "It hasn't hit 50 conversions yet"
+        ],
+        answer: [0, 1],
+        explain: "Cut early when leading indicators are obviously bad (CPC 2–3× normal) or a static's CPC is absurd. Likes and a 50-conversion count aren't kill signals."
+      },
+      {
+        type: "mcq",
+        tag: "Exam · Golden rule",
+        prompt: "You want to test a new audience on a winning campaign. What do you do?",
+        options: [
+          "Duplicate the ad set (or launch a new one) — never modify a live, working ad set",
+          "Edit the live ad set directly to save time",
+          "Delete the ad set and rebuild it",
+          "Pause the whole campaign first"
+        ],
+        answer: 0,
+        explain: "Never modify a live ad set — adding into it muddies data, steals delivery, and resets learning. Duplicate instead."
+      },
+      {
+        type: "mcq",
+        tag: "Exam · Pacing",
+        prompt: "A book-a-call client's calendar is nearly full for the week. What do you do with spend?",
+        options: [
+          "Scale hard regardless",
+          "Reduce spend — don't pay to book an already-full calendar",
+          "Pause all ads for the rest of the week",
+          "Switch the optimization event"
+        ],
+        answer: 1,
+        explain: "Pace spend to availability: few open slots → ease off; lots of openings → room to scale."
+      },
+      {
+        type: "mcq",
+        tag: "Exam · Pocket theory",
+        prompt: "A winning ad set has plateaued around $350/day. What's the AdClass scaling move?",
+        options: [
+          "Duplicate it with the same post-ID into a new ad set to find a fresh pocket",
+          "Force 3× more budget through the same ad set",
+          "Kill it — it's clearly fatigued",
+          "Cut its budget in half"
+        ],
+        answer: 0,
+        explain: "Pocket theory: duplicate the winner into a parallel ad set (same post-ID) — it often finds a new pocket that scales independently. Degrading on added budget can mean the pocket is tapped, not that the ad is dead."
+      },
+      {
+        type: "mcq",
+        tag: "Exam · Data quality",
+        prompt: "In 2026, is the browser-side pixel alone enough for clean conversion data?",
+        options: [
+          "No — CAPI (server-side) must be set up, with events deduplicated against the browser pixel",
+          "Yes — the browser pixel is plenty",
+          "Only for e-commerce accounts",
+          "Only when Hyros is down"
+        ],
+        answer: 0,
+        explain: "CAPI is a non-negotiable in 2026 — server-side events give cleaner signal; dedupe them against the browser pixel so Meta doesn't double-count."
       }
     ]
   },
