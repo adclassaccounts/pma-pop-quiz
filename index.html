@@ -422,8 +422,424 @@ const QUIZZES = {
         explain: "Building, launching, and optimizing inside the ad account is the <b>PMA's</b> job. The PMS owns strategy before the click and the client relationship."
       }
     ]
+  },
+
+  4: {
+    title: "Day 4 — Funnel Auditing",
+    sub: "The landing page as a targeting signal; finding the drop-off. ~10 min.",
+    questions: [
+      {
+        type: "mcq",
+        tag: "Day 4 · LP as a signal",
+        prompt: "Two ads are identical — same copy, same pixel — but one points to a masculine-designed funnel and the other to a feminine-designed one. What happens to delivery?",
+        options: [
+          "Nothing — the landing page doesn't affect ad delivery",
+          "Meta serves them to different audiences — it reads the page's copy and design as a targeting signal",
+          "Meta rejects the feminine-designed one",
+          "Delivery is identical because the pixel is the same"
+        ],
+        answer: 1,
+        explain: "Meta scans your landing page — bounce rate, time on page, copy, even the design's feel — and uses it as a targeting signal. The page is <b>part of the ad system</b>, not downstream of it. Same ad, different page = different audience."
+      },
+      {
+        type: "mcq",
+        tag: "Day 4 · Lead-magnet trap",
+        prompt: "A lead magnet has run two weeks at about the same cost-per-lead as the application funnel. The team wants to kill it. What's the AdClass view?",
+        options: [
+          "Kill it — same CPL means it isn't working",
+          "Keep it — judge a lead magnet on pipeline contribution at ~day 60, not direct revenue at day 14",
+          "Double the budget immediately",
+          "Convert it into a low-ticket funnel"
+        ],
+        answer: 1,
+        explain: "The lead magnet's job is firing qualified pixel events at scale, building a database for SDR follow-up, and seeding a 30–60 day nurture. Judge it on <b>pipeline at day 60</b>, not CPL or revenue at day 14."
+      },
+      {
+        type: "mcq",
+        tag: "Day 4 · The three levers",
+        prompt: "You've found the weakest step in a funnel. To fix it, what are the three levers — pulled one at a time?",
+        options: [
+          "Messaging, design, and page structure",
+          "Budget, bid, and audience",
+          "Hook, format, and avatar",
+          "CPM, CTR, and CPC"
+        ],
+        answer: 0,
+        explain: "<b>Messaging</b> (headline/copy), <b>design</b> (layout, colors, fonts), and <b>structure</b> (testimonials, step order, opt-in placement). Test one at a time. Fixing one weak step — e.g. opt-in 15% → 30% — can halve cost-per-call without touching the ads."
+      },
+      {
+        type: "mcq",
+        tag: "Day 4 · Mobile audit",
+        prompt: "More than 60% of traffic is mobile. What belongs on your mobile-view audit?",
+        options: [
+          "Whether the form works, the video autoplays, nothing's broken, and the page loads under ~4s",
+          "The desktop hero image resolution",
+          "Your ad account's daily spend limit",
+          "The CBO vs. ABO setting"
+        ],
+        answer: 0,
+        explain: "Open mobile view and check the form works, the video autoplays, nothing's broken, and load time is reasonable (over ~4s is a red flag). Most of your traffic experiences the funnel here."
+      },
+      {
+        type: "mcq",
+        tag: "Day 4 · Multi-funnel",
+        prompt: "A client is hitting a frequency ceiling on their single book-a-call funnel and can't scale. What funnel-layer fix does AdClass recommend?",
+        options: [
+          "Just raise the budget on the existing funnel",
+          "Narrow the audience targeting",
+          "Run multiple funnels hitting different audience stages (e.g. TOF lead magnet + MOF VSL + BOF retargeting), each with its own optimization event",
+          "Lower the bid cap"
+        ],
+        answer: 2,
+        explain: "A single funnel optimized for one event taps out one pocket — frequency climbs and costs rise. Running <b>different funnels at different stages</b> (different optimization events) opens pockets the others can't reach. Multiple offers/pages are the new multiple ads."
+      },
+      {
+        type: "mcq",
+        tag: "Day 4 · Process",
+        prompt: "The Day 4 deliverable is 3 observations. Which one is acceptable, AdClass-style?",
+        options: [
+          "“The page could be better.”",
+          "“H1 says 'blueprint' but the ads say 'system' — change the H1 to match the ad.”",
+          "“Make the whole funnel nicer.”",
+          "“Add more colors and testimonials everywhere.”"
+        ],
+        answer: 1,
+        explain: "Observations must be <b>specific and actionable</b> — name the exact problem and the fix. Vague notes like “could be better” aren't usable on a client call."
+      },
+      {
+        type: "mcq",
+        tag: "review",
+        prompt: "Review (Day 3): An account's CTR is steady and CPL is flat, but the qualified-lead % has been sliding for months. Where do you look first?",
+        options: [
+          "Data/pixel quality — is the optimization event firing reliably and at enough volume?",
+          "The headline font color",
+          "The CBO budget split",
+          "The length of the ad copy"
+        ],
+        answer: 0,
+        explain: "Healthy clicks + rotting quality is the classic <b>starved/again mis-firing pixel</b> pattern. If Meta isn't getting a clean conversion signal, it optimizes for who will engage, not who will convert. Audit the firing first."
+      },
+      {
+        type: "mcq",
+        tag: "review",
+        prompt: "Review (Day 2): Which funnel type closes the purchase inside the funnel with no sales call?",
+        options: [
+          "VSL funnel",
+          "Webinar funnel",
+          "Low-ticket funnel",
+          "Lead-magnet funnel"
+        ],
+        answer: 2,
+        explain: "The <b>low-ticket funnel</b> (ad → sales page → checkout → one-time offer) closes in-funnel — used to break even on spend and build a buyer list to ascend later."
+      }
+    ]
+  },
+
+  5: {
+    title: "Day 5 — Creative Philosophy",
+    sub: "The three pillars in practice, callouts, valid tests, scripting. ~10 min.",
+    questions: [
+      {
+        type: "mcq",
+        tag: "Day 5 · Pillars",
+        prompt: "What's the difference between Pillar 1 (Creative Diversity) and Pillar 2 (Angle Testing)?",
+        options: [
+          "Pillar 1 floods volume and variety of creative to discover pockets; Pillar 2 isolates which messaging/angle actually resonates",
+          "Pillar 1 is about budget; Pillar 2 is about bidding",
+          "They're two names for the same thing",
+          "Pillar 1 is scaling winners; Pillar 2 is killing losers"
+        ],
+        answer: 0,
+        explain: "<b>Pillar 1 (Creative Diversity)</b> is the foundation — high volume/variety so the algorithm discovers audience pockets. <b>Pillar 2 (Angle Testing)</b> is the discovery engine — finding the hook/messaging that resonates. Pillar 3 scales the winners."
+      },
+      {
+        type: "mcq",
+        tag: "Day 5 · Structure",
+        prompt: "When testing angles, you should group your ad sets by ___.",
+        options: ["Format", "Angle", "Audience", "Placement"],
+        answer: 1,
+        explain: "Group by <b>angle</b> (the messaging concept / callout), not format or audience. Inside each angle, mix formats (talking head, UGC, static…). The angle is the thesis; format variety is how Meta finds the right person for it."
+      },
+      {
+        type: "mcq",
+        tag: "Day 5 · Callouts",
+        prompt: "Why call out an identity (“Dallas executives”) rather than an objection (“or you don't pay”)?",
+        options: [
+          "Identity callouts attract people already half-sold the offer is for them; objection/guarantee callouts attract skeptics who convert poorly",
+          "Objection callouts are banned by Meta",
+          "Identity callouts are just cheaper per click",
+          "There's no real difference"
+        ],
+        answer: 0,
+        explain: "People who self-identify with your ad are the people who click and convert. Guarantee/objection headlines pull in skeptics who came in worried about their money. Call out the <b>identity you want in the buyer</b>, not the objection you want to defuse."
+      },
+      {
+        type: "mcq",
+        tag: "Day 5 · Valid tests",
+        prompt: "You launch an ad set testing a new hook, a new image, AND new targeting all at once. The winner pops. What did you actually learn?",
+        options: [
+          "Nothing reliable — you changed multiple variables, so you can't attribute the result",
+          "That the new image caused the win",
+          "That the new targeting caused the win",
+          "Everything — it was a perfect test"
+        ],
+        answer: 0,
+        explain: "A valid test isolates <b>one variable</b> (hook, format, CTA, visual, or avatar) and holds everything else constant. “If you're testing everything, you're testing nothing.”"
+      },
+      {
+        type: "mcq",
+        tag: "Day 5 · Scaling",
+        prompt: "What's one rule for scaling info / high-ticket creative?",
+        options: [
+          "Always move winners into a fresh CBO immediately",
+          "Scale in place — don't disturb a working ad set by dropping new post-IDs into it",
+          "Use cost caps on book-a-call campaigns",
+          "Add 200% daily budget jumps"
+        ],
+        answer: 1,
+        explain: "For info/high-ticket, <b>scale in place</b>. Dropping a new post-ID into a scaled ad set makes Meta re-hunt a pocket and spikes call-cost volatility. Cost caps are for high-volume low-ticket/purchase, not low-volume book-a-call."
+      },
+      {
+        type: "mcq",
+        tag: "Day 5 · Scripting",
+        prompt: "What's the correct 4-part structure of a video ad script?",
+        options: [
+          "Hook → Problem/Empathy → Process/Mechanism → CTA",
+          "Intro → Features → Pricing → Close",
+          "CTA → Hook → Testimonial → Offer",
+          "Problem → Price → Guarantee → Logo"
+        ],
+        answer: 0,
+        explain: "<b>Hook</b> (0–5s pattern interrupt), <b>Problem/Empathy</b> (name the pain so they feel seen), <b>Process/Insight/Mechanism</b> (break the belief, present the offer — hold some back), <b>CTA</b> (one direct, congruent action)."
+      },
+      {
+        type: "mcq",
+        tag: "review",
+        prompt: "Review (Day 4): When should you judge a lead magnet — and on what?",
+        options: [
+          "Day 14, on cost-per-lead vs. the application funnel",
+          "Day 60, on its pipeline contribution",
+          "Day 7, on direct ROAS",
+          "Day 30, on immediate revenue"
+        ],
+        answer: 1,
+        explain: "Judge a lead magnet on <b>pipeline contribution at ~day 60</b>, not direct revenue/CPL at day 14. Its job is qualified pixel events, list-building, and seeding nurture."
+      },
+      {
+        type: "mcq",
+        tag: "review",
+        prompt: "Review (Day 3): Your cost per call target is $300. How much should an ad set spend before you judge it a loser?",
+        options: ["$300 (1× KPI)", "$600 (2× KPI)", "$900 (3× KPI)", "$1,500 (5× KPI)"],
+        answer: 2,
+        explain: "Kill criteria: spend <b>3× your KPI</b> before deciding — so ~$900 at a $300 target. (Cut faster only if leading indicators are badly off on day one.)"
+      }
+    ]
+  },
+
+  6: {
+    title: "Day 6 — Competitor Research",
+    sub: "Ad Library scraping, finding angle gaps, SWOT. ~10 min.",
+    questions: [
+      {
+        type: "mcq",
+        tag: "Day 6 · Spotting winners",
+        prompt: "In the Meta Ad Library, what's the quickest tell that a competitor's ad is probably a winner?",
+        options: [
+          "It's been running 30+ days",
+          "It has the most likes and comments",
+          "It uses the most colors",
+          "It's their newest ad"
+        ],
+        answer: 0,
+        explain: "<b>Longevity</b> is the first signal — an ad live 30+ days is almost certainly working for them. Second check: a traffic-ranker (SimilarWeb-style) to confirm the page actually gets meaningful traffic before you model their strategy."
+      },
+      {
+        type: "mcq",
+        tag: "Day 6 · Angle gaps",
+        prompt: "What's an “angle gap”?",
+        options: [
+          "A gap in your ad scheduling",
+          "A callout, hook, or angle competitors aren't running that your client could own",
+          "The difference between two bid amounts",
+          "A missing pixel event"
+        ],
+        answer: 1,
+        explain: "An <b>angle gap</b> is an angle the market isn't running that your client can own. Competitive research is about finding gaps to claim, not the angles everyone already fights over."
+      },
+      {
+        type: "mcq",
+        tag: "Day 6 · Don't clone",
+        prompt: "Why is cloning a competitor's winning ads usually a mistake?",
+        options: [
+          "You want the angles they're NOT running (gaps you can own); remix proven hooks rather than clone them",
+          "Cloning ads is illegal",
+          "Their ads never actually work",
+          "Meta bans duplicate creative"
+        ],
+        answer: 0,
+        explain: "Clone and you're fighting on their turf, usually with less brand equity. Use the Ad Library to find <b>gaps to own</b>, and remix proven hooks rather than copying ads outright."
+      },
+      {
+        type: "mcq",
+        tag: "Day 6 · Market structure",
+        prompt: "AdClass narrows a market base → subcategory → niche → super-niche. Why go as tight as possible?",
+        options: [
+          "It makes the targetable audience bigger",
+          "The tighter the super-niche, the sharper your competitor list and angle gaps",
+          "It automatically lowers CPMs",
+          "Meta requires a declared super-niche"
+        ],
+        answer: 1,
+        explain: "A tighter super-niche gives a <b>sharper competitor set and sharper angle gaps</b>. Also sanity-check targetability (can it even run on Meta/Google?) and market size (too small can't scale, too broad won't bite)."
+      },
+      {
+        type: "mcq",
+        tag: "Day 6 · SWOT",
+        prompt: "In a performance SWOT, the “Opportunities” quadrant captures what?",
+        options: [
+          "Angle gaps + audience pockets competitors aren't talking to",
+          "The client's unfair advantages",
+          "Where prospects are likely to bounce",
+          "Platform changes that could erode the account"
+        ],
+        answer: 0,
+        explain: "<b>Opportunities</b> = angle gaps + untapped pockets. (Strengths = unfair advantage; Weaknesses = where prospects bounce; Threats = what could erode the account — a bigger competitor, platform changes, seasonality.)"
+      },
+      {
+        type: "mcq",
+        tag: "review",
+        prompt: "Review (Day 5): When testing angles, you group ad sets by ___.",
+        options: ["Format", "Angle", "Audience", "Placement"],
+        answer: 1,
+        explain: "Group by <b>angle</b>, mixing formats inside each angle. The angle is the thesis; format variety is how Meta finds the right person for it."
+      },
+      {
+        type: "mcq",
+        tag: "review",
+        prompt: "Review (Day 4): Does the landing page affect which audience Meta shows your ad to?",
+        options: [
+          "No — only the ad creative and pixel matter",
+          "Yes — Meta reads the page, so it's a targeting signal",
+          "Only on desktop",
+          "Only if you change the pixel"
+        ],
+        answer: 1,
+        explain: "Yes — the landing page is a <b>targeting signal</b>. Meta reads the copy and design and serves accordingly; even a one-word headline change can shift who sees the ad."
+      }
+    ]
+  },
+
+  7: {
+    title: "Day 7 — Data Review",
+    sub: "7/14/30 windows, leading vs lagging indicators, warning signs. ~10 min.",
+    questions: [
+      {
+        type: "mcq",
+        tag: "Day 7 · 7/14/30",
+        prompt: "Why look at 7-, 14-, AND 30-day windows every time before you cut, scale, or change something?",
+        options: [
+          "7-day = what's happening now, 14-day = the recent trend, 30-day = the baseline; if 7 disagrees with 30 you have a question, not a decision",
+          "To make the report look longer",
+          "Because Meta requires all three",
+          "Only the 7-day actually matters"
+        ],
+        answer: 0,
+        explain: "Each window answers a different question. When the 7-day disagrees with the 30-day you don't yet have a decision — especially on high-ticket, where sales cycles run longer than you think."
+      },
+      {
+        type: "mcq",
+        tag: "Day 7 · Indicators",
+        prompt: "Which of these is a LEADING indicator (moves fast, within 1–3 days)?",
+        options: [
+          "Cost per call",
+          "CTR / CPC / hook rate",
+          "ROAS",
+          "Close rate"
+        ],
+        answer: 1,
+        explain: "<b>Leading</b> (1–3 days): CPM, CTR, CPC, hook rate, scroll-stop. <b>Lagging</b> (7–30 days): CPL, cost per call/application, ROAS, show rate, close rate. For call clients, CPC is often the single most important leading number."
+      },
+      {
+        type: "mcq",
+        tag: "Day 7 · Low-CPM trap",
+        prompt: "On a conversion campaign meant to reach $150K+ earners, your CPM is suddenly a third of normal (~$13). Warning or win?",
+        options: [
+          "Warning — a suspiciously low CPM usually means a low-quality placement/pocket whose cheap clicks won't convert",
+          "Win — cheap reach, scale it hard",
+          "Neutral — CPM doesn't mean anything",
+          "It just means the pixel broke"
+        ],
+        answer: 0,
+        explain: "CPM tracks audience quality. A cheap CPM on a high-value conversion campaign usually means you've drifted into a low-quality placement (often FB Reels) or pocket. Investigate the cheap traffic — don't celebrate it."
+      },
+      {
+        type: "mcq",
+        tag: "Day 7 · Vanity metrics",
+        prompt: "An ad has a 2% CTR, 35% hook rate, and a beautiful thumb-stop — and zero sales. What do you do?",
+        options: [
+          "Scale it — the metrics say sales are coming",
+          "Kill it — engagement is attention, not the right attention; the wrong people clicking is worse than no one",
+          "Keep it at low budget for the social proof",
+          "Lower the budget and wait a month"
+        ],
+        answer: 1,
+        explain: "The vanity-metrics trap. Great engagement + zero conversions means the <b>wrong people</b> are clicking — burning budget and feeding Meta bad signal. Kill it."
+      },
+      {
+        type: "mcq",
+        tag: "Day 7 · Day-1 reads",
+        prompt: "You launched 4 new ads yesterday. Day-1 CPC is 2–3× your normal. Do you wait for the full 3× KPI spend, or pull?",
+        options: [
+          "Pull — when leading indicators are badly off on day 1, you don't need to wait for full 3× KPI spend",
+          "Wait the full 3× KPI no matter what",
+          "Double the budget to gather data faster",
+          "Switch the optimization event immediately"
+        ],
+        answer: 0,
+        explain: "When leading indicators are clearly bad on day one (CPC 2–3× normal), the creative isn't resonating — cut faster than the 3× KPI guideline. That guideline is for ambiguous cases, not obvious losers."
+      },
+      {
+        type: "mcq",
+        tag: "review",
+        prompt: "Review (Day 6): What's the quickest tell in the Ad Library that a competitor's ad is probably a winner?",
+        options: [
+          "It's been running 30+ days",
+          "It has the most likes",
+          "It's their newest ad",
+          "It uses the most colors"
+        ],
+        answer: 0,
+        explain: "Longevity — an ad running 30+ days is almost certainly working. Confirm with a quick traffic check before modeling their strategy."
+      },
+      {
+        type: "mcq",
+        tag: "review",
+        prompt: "Review (Day 5): Which converts better to call out in a headline?",
+        options: [
+          "The objection / guarantee (“or you don't pay”)",
+          "The buyer's identity (“Dallas executives”)",
+          "Neither matters",
+          "Always the lowest price"
+        ],
+        answer: 1,
+        explain: "Call out the <b>identity</b> you want in the buyer. Identity callouts attract people already half-sold; objection/guarantee callouts attract skeptics who convert poorly."
+      },
+      {
+        type: "mcq",
+        tag: "review",
+        prompt: "Review (Day 4): A lead magnet should be judged at which point, and on what?",
+        options: [
+          "Day 14, on cost-per-lead",
+          "Day 60, on pipeline contribution",
+          "Day 7, on direct ROAS",
+          "Day 30, on immediate revenue"
+        ],
+        answer: 1,
+        explain: "Day 60, on pipeline contribution — not CPL or revenue at day 14. The payoff shows up as cheaper booked calls weeks later."
+      }
+    ]
   }
-  // 4: { title: "Day 4 — Funnel Auditing", sub: "...", questions: [ ... ] },
+  // 8: { title: "Day 8 — AI Foundations", sub: "...", questions: [ ... ] },
   // ...add the rest here as we roll out
 };
 
